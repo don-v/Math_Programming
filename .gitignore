@@ -1,0 +1,6 @@
+*.DS_Store
+*.vscode
+**/*.png
+*__pycache__/
+*.code-workspace
+*.env
