@@ -450,6 +450,38 @@ def points36(precision):
 
 
 
+# q48 start:
+
+def rtheta48(t1,t2, a=-16,b=2,c=1,n=5):
+    '''conchoid'''
+    theta=np.linspace(t1,t2,n)
+    r = 4/(2+(np.sin(theta)))
+    r_theta=np.vstack((np.rad2deg(theta),r)).T
+
+    table48={}
+    for deg in range(0,375,15):
+        theta2 = np.deg2rad(deg)
+        r2 = 4/(2+(np.sin(theta2)))
+        table48[deg]={'r': f'{r2}', 'x,y': plot_rtheta(r2,theta2)}
+
+    return r_theta, (r,theta), table48 
+
+def plot48(t1,t2,n=1000):
+    x = rtheta48(t1,t2,n=n)
+    r = x[1][0]
+    theta = x[1][1]
+    plt.plot(*plot_rtheta(r,theta))
+    plt.show()
+    return None
+
+def get_r48(deg,a=8,b=5):
+    rad = np.deg2rad(deg)
+    r = 4/(2+(np.sin(rad)))
+    return r
+
+# q48 end:
+
+
 
 def ret_bin8(x):
     binlen = len(bin(x)[2:])
