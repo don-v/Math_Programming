@@ -1,5 +1,28 @@
 from x09_06_polar_coords import *
 
+def convert_polar_to_rect(r,theta):
+    x = r*np.cos(theta)
+    y = r*np.sin(theta)
+    return x,y
+
+def distance(p1:tuple, p2:tuple):
+    """
+    need to convert polar coords to rectangular!
+    
+    then take the distance!
+    """
+    x1,y1 = convert_polar_to_rect(*p1)
+    x2,y2 = convert_polar_to_rect(*p2)
+
+    distance = (((x2-x1)**2) + ((y2-y1)**2))**(1/2)
+    return distance
+
+def get_majaxis_coords(majaxis_dict:dict):
+    points = {}
+    for i,k in enumerate(majaxis_dict):
+        points[i] = (majaxis_dict[k], k)
+    return points   
+
 def polar_conic(_de, s, t, pos=True, cos=True):
     """
     Let F be a fixed point and l a fixed line in a plane. The
@@ -56,12 +79,34 @@ def polar_conic(_de, s, t, pos=True, cos=True):
             for theta in thetas:
                 r = _de/(s + sign*t*np.cos(theta))
                 majaxis[theta] = r
+            
+            points_dict = get_majaxis_coords(majaxis)
+            x1,y1 = convert_polar_to_rect(*points_dict[0])
+            x2,y2 = convert_polar_to_rect(*points_dict[1])
+            dist = distance(points_dict[0],points_dict[1])
+            a = dist/2
+            c = a*e 
+            b = ((a**2) - (c**2))**(1/2)
+            asq = a**2
+            bsq = b**2
+            centerx = x1 + a if x1 < x2 else x1 - a
+
+        
         else:
             thetas = [pi/2, (3*pi)/2]
             for theta in thetas:
                 r = _de/(s + sign*t*np.sin(theta))
                 majaxis[theta] = r
 
-        
-def distance(p1,p2):
-    pass
+            points_dict = get_majaxis_coords(majaxis)
+            x1,y1 = convert_polar_to_rect(*points_dict[0])
+            x2,y2 = convert_polar_to_rect(*points_dict[1])
+            dist = distance(points_dict[0],points_dict[1])
+            a = dist/2
+            c = a*e 
+            b = ((a**2) - (c**2))**(1/2)
+            asq = a**2
+            bsq = b**2
+            centery = y1 + a if y1 < y2 else y2 - a
+
+    
