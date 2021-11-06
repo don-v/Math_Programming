@@ -1,6 +1,6 @@
 from x09_06_polar_coords import *
 
-def polar_conic(_de, sign='pos', cos=True):
+def polar_conic(_de, s, t, pos=True, cos=True):
     """
     Let F be a fixed point and l a fixed line in a plane. The
     set of all points P in the plane such that the ratio d(P,F):
@@ -18,6 +18,9 @@ def polar_conic(_de, sign='pos', cos=True):
     3. r = (d*e)/(1 + e*sin(theta)) # opens downward
     4. r = (d*e)/(1 - e*sin(theta)) # opens upward
 
+    a generic form for these equations based on paramters for this function:
+    r = _de/(s + sign*t*np.cos(theta) 
+
     
     rectangular form:
 
@@ -33,4 +36,32 @@ def polar_conic(_de, sign='pos', cos=True):
     b = (d*e)/((1-(e**2))**(1/2))
     e = c/a
 
-     """
+    """
+    # theta = np.linspace(0,2*pi, 1000)
+    sign = 1 if pos else -1
+    
+    e = t/s
+    if e == 1:
+        type = 'parabola'
+    elif 0 < e and e < 1:
+        type = 'ellipse'
+    else:
+        type = 'hyperbola'
+    
+
+    if type == 'ellipse':
+        majaxis = {}
+        if cos:
+            thetas = [0, pi]
+            for theta in thetas:
+                r = _de/(s + sign*t*np.cos(theta))
+                majaxis[theta] = r
+        else:
+            thetas = [pi/2, (3*pi)/2]
+            for theta in thetas:
+                r = _de/(s + sign*t*np.sin(theta))
+                majaxis[theta] = r
+
+        
+def distance(p1,p2):
+    pass
