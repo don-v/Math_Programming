@@ -154,6 +154,24 @@ def do_parabola_noshow(a,b,c,vertical=True, xlim=(-100,100), ylim=(-100,100)):
     plt.hlines(eval_Dx(Dx), *xlim) if vertical else plt.vlines(eval_Dx(Dx), *ylim)
     return None
 
+
+def do_parabola_(a,b,c,vertical=True, xlim=(-100,100), ylim=(-100,100)):
+    hkp = get_hkp(a,b,c,vertical)
+    vertex, focus, Dx, eq, direction = ret_VFDx(*hkp, vertical)
+    print(f'vertex: V{vertex}')
+    print(f'focus: F{focus}')
+    xyvar = 'y' if vertical else 'x'
+    print(f'Dx: {xyvar} = {eval_Dx(Dx)}')
+    plotvars = get_plotvars(a,b,c,vertical,xlim)
+    plt.plot(*plotvars)
+    plt.xlim(xlim)
+    plt.ylim(ylim)
+    plt.hlines(0, *xlim, 'k')
+    plt.vlines(0, *ylim, 'k')
+    plt.hlines(eval_Dx(Dx), *xlim) if vertical else plt.vlines(eval_Dx(Dx), *ylim)
+    plt.show()
+    return None
+
     
 
     

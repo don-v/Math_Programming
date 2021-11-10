@@ -209,69 +209,17 @@ def polar_conic(_de, s, t, pos=True, cos=True, plot=False):
             return a,b,c,e,asq,bsq,k
 
     if type == 'parabola':
-        majaxis = {}
+        # def polar_conic(_de, s, t, pos=True, cos=True, plot=False):
+        k = _de
+        j = s
+        a = ((-1*j)/(2*k)) if pos else (j/(2*k))
+        b = 0
+        c = k/(2*j) if pos else (-1*k)/(2*j)
         if cos:
-            thetas = [0, pi]
-            for theta in thetas:
-                r = _de/(s + sign*t*np.cos(theta))
-                majaxis[theta] = r
-            
-            points_dict = get_majaxis_coords(majaxis)
-            x1,y1 = convert_polar_to_rect(*points_dict[0])
-            x2,y2 = convert_polar_to_rect(*points_dict[1])
-            dist = distance(points_dict[0],points_dict[1])
-            a = dist/2
-            c = a*e 
-            b = ((c**2) - (a**2))**(1/2)
-            asq = a**2
-            bsq = b**2
-            h = x1 + a if x1 < x2 else x1 - a
-
             if plot:
-                do_hyperbola(asq,bsq,h=h)
-            
-
-            print(f'''
-            a = {a:>9.2f}
-            b = {b:>9.2f}
-            c = {c:>9.2f}
-            e = {e:>9.2f}
-            asq = {asq:>7.2f}
-            bsq = {bsq:>7.2f}
-            h = {h:>9.2f}
-            ''')
-
-            return a,b,c,e,asq,bsq,h
-
-        
+                do_parabola_(a,b,c,vertical=False)
+            return f'x = {a:.2f}*(y**2) + {c:.2f}'
         else:
-            thetas = [pi/2, (3*pi)/2]
-            for theta in thetas:
-                r = _de/(s + sign*t*np.sin(theta))
-                majaxis[theta] = r
-
-            points_dict = get_majaxis_coords(majaxis)
-            x1,y1 = convert_polar_to_rect(*points_dict[0])
-            x2,y2 = convert_polar_to_rect(*points_dict[1])
-            dist = distance(points_dict[0],points_dict[1])
-            a = dist/2
-            c = a*e 
-            b = ((c**2) - (a**2))**(1/2)
-            asq = a**2
-            bsq = b**2
-            k = y1 + a if y1 < y2 else y1 - a
-
             if plot:
-                do_hyperbola(asq,bsq,k=k,horizontal=False)
-            
-            print(f'''
-            a = {a:>9.2f}
-            b = {b:>9.2f}
-            c = {c:>9.2f}
-            e = {e:>9.2f}
-            asq = {asq:>7.2f}
-            bsq = {bsq:>7.2f}
-            k = {k:>9.2f}
-            ''')
-
-            return a,b,c,e,asq,bsq,k
+                do_parabola_(a,b,c)
+            return f'y = {a:.2f}*(x**2) + {c:.2f}'
