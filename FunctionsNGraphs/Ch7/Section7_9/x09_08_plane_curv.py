@@ -20,3 +20,11 @@ def theory_ex1_(a,b, xexp:str, yexp:str):
         y = eval(yexp)
         points_dict[t] = (x,y)
     return points_dict
+
+def theory_ex3(a,b, xexp:str, yexp:str):
+    points_dict = {}
+    for t in np.linspace(a,b):
+        x = eval(xexp) 
+        y = eval(yexp)
+        points_dict[t] = (x,y)
+    return points_dict
