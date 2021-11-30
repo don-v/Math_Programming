@@ -28,3 +28,8 @@ def theory_ex3(a,b, xexp:str, yexp:str):
         y = eval(yexp)
         points_dict[t] = (x,y)
     return points_dict
+
+def param_plot(points_dict):
+    for p in points_dict.values():
+        plt.plot(*p,marker='o', color='c')
+    plt.show()
