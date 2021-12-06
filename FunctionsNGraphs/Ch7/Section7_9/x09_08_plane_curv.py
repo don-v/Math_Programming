@@ -33,3 +33,21 @@ def param_plot(points_dict):
     for p in points_dict.values():
         plt.plot(*p,marker='o', color='c')
     plt.show()
+
+def theory_ex17(a,b,xexp:str, yexp:str,n=50):
+    points_dict = {}
+    for t in np.linspace(a,b,n):
+        if abs(t) >=1:
+            x = eval(xexp) 
+            y = eval(yexp)
+            points_dict[t] = (x,y)
+    return points_dict
+
+def theory_ex18(a,b,xexp:str, yexp:str,n=50):
+    points_dict = {}
+    for t in np.linspace(a,b,n):
+        if abs(t) <=1:
+            x = eval(xexp) 
+            y = eval(yexp)
+            points_dict[t] = (x,y)
+    return points_dict
