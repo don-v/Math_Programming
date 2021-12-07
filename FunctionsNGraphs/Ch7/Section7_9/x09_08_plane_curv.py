@@ -70,16 +70,28 @@ curves = [C1,C2,C3,C4]
 
 curve_points = {}
 for c in curves:
-    curve_points[c] = theory_ex3(-5,5,c[0],c[1],n=10)
+    curve_points[c] = theory_ex3(-2,2,c[0],c[1],n=1000)
 
 # for c in curve_points.items():
 #     print(c)
 
 def param_plot_nosho(points_dict):
+    plt.xlim(0,4)
+    plt.ylim(-2,2)
     for p in points_dict.values():
-        plt.plot(*p,marker='o')
+        plt.plot(*p,marker='o',c='c')
     return None 
 
 # for point_dict in curve_points.values():
 #     param_plot_nosho(point_dict)
 # plt.show()
+
+def four_plot(points_dict,curves):
+    len_pd = len(points_dict)
+    for i in range(len_pd):
+        plt.subplot(2,2,i+1)
+        for p in points_dict[curves[i]].values():
+            plt.xlim(0,4)
+            plt.ylim(-2,2)
+            plt.plot(*p,marker='o', c='c')
+    return None
