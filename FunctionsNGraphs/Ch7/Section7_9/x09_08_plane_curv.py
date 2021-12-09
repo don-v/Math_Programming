@@ -95,3 +95,30 @@ def four_plot(points_dict,curves):
             plt.ylim(-2,2)
             plt.plot(*p,marker='o', c='c')
     return None
+
+
+def four_plot24(a,b):
+    C1 = ('t', '1-t')
+    C2 = ('1-(t**2)', 't**2')
+    C3 = ('(np.cos(t))**2', '(np.sin(t))**2')
+    C4 = ('(np.log(t))-t'), '1+t-(np.log(t))'
+
+    curves = [C1,C2,C3,C4]
+
+    curve_points = {}
+    for c in curves:
+        if c == C4:
+            curve_points[c] = theory_ex3(0.0000000001,b,c[0],c[1],n=1000)
+        else:
+            curve_points[c] = theory_ex3(a,b,c[0],c[1],n=1000)
+
+
+    len_pd = len(curve_points)
+    for i in range(len_pd):
+        plt.subplot(2,2,i+1)
+        for p in curve_points[curves[i]].values():
+            plt.plot(*p,marker='o', c='c')
+    return curve_points
+
+    # adjust n tomorrow! 
+    
