@@ -122,3 +122,21 @@ def four_plot24(a,b,n):
 
     # adjust n tomorrow! 
     
+def epicycloid(a,b,R,r,xexp:str, yexp:str,n=50):
+    points_dict = {}
+    for t in np.linspace(a,b,n):
+        x = eval(xexp) 
+        y = eval(yexp)
+        points_dict[t] = (x,y)
+    return points_dict
+
+def plot_circle(R,n=50,show=True):
+    x = np.linspace(-R,R,n)
+    ytop = ((R**2)-(x**2))**(1/2)
+    ybot = -1*ytop
+    plt.plot(x,ytop)
+    plt.plot(x,ybot)
+    if show:
+        plt.show()
+        return None
+    return x, ytop, ybot
