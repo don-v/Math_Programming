@@ -75,13 +75,6 @@ for c in curves:
 # for c in curve_points.items():
 #     print(c)
 
-def param_plot_nosho(points_dict):
-    plt.xlim(0,4)
-    plt.ylim(-2,2)
-    for p in points_dict.values():
-        plt.plot(*p,marker='o',c='c')
-    return None 
-
 # for point_dict in curve_points.values():
 #     param_plot_nosho(point_dict)
 # plt.show()
@@ -122,11 +115,11 @@ def four_plot24(a,b,n):
 
     # adjust n tomorrow! 
     
-def epicycloid(a,b,R,r,xexp:str, yexp:str,n=50):
+def epicycloid(a,b,R,r,n=50):
     points_dict = {}
     for t in np.linspace(a,b,n):
-        x = eval(xexp) 
-        y = eval(yexp)
+        x = (R+r)*np.cos(t) - r*np.cos(((R+r)/r)*t)
+        y = (R+r)*np.sin(t) - r*np.sin(((R+r)/r)*t)
         points_dict[t] = (x,y)
     return points_dict
 
@@ -140,3 +133,17 @@ def plot_circle(R,n=50,show=True):
         plt.show()
         return None
     return x, ytop, ybot
+
+def param_plot_nosho(points_dict,show=True):
+    for p in points_dict.values():
+        plt.plot(*p,marker='o',c='c')
+    if show:
+        plt.show()
+        return None
+    return None 
+
+def plot_epicycloid(a,b,R,r,n=50,show=False):
+    plot_circle(R,n,show=show)
+    param_plot_nosho(epicycloid(a,b,R,r,n),show=show)
+    plt.show()
+    return None
