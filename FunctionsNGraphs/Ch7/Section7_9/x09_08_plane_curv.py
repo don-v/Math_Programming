@@ -134,9 +134,9 @@ def plot_circle(R,n=50,show=True):
         return None
     return x, ytop, ybot
 
-def param_plot_nosho(points_dict,show=True):
+def param_plot_nosho(points_dict,color='c',show=True):
     for p in points_dict.values():
-        plt.plot(*p,marker='o',c='c')
+        plt.plot(*p,marker='o',c=color)
     if show:
         plt.show()
         return None
@@ -147,3 +147,11 @@ def plot_epicycloid(a,b,R,r,n=50,show=False):
     param_plot_nosho(epicycloid(a,b,R,r,n),show=show)
     plt.show()
     return None
+
+def trichoid(a,b,n=1000):
+    points_dict = {}
+    for t in np.linspace(0,2*pi*a,n):
+        x = (a*t)-(b*np.sin(t))
+        y = a-(b*np.cos(t))
+        points_dict[t] = (x,y)
+    return points_dict
