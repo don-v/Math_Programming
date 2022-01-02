@@ -228,7 +228,7 @@ def do_ellipse_noshow(asq,bsq,h=0,k=0):
     return None 
 
 
-def study_eccentricity(a,b=0.01):
+def study_eccentricity_e(a,b=0.01):
     while b < a:
         asq = a**2
         bsq = b**2

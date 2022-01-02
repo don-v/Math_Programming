@@ -319,7 +319,7 @@ def plot_line(a,b,c):
     return slope, intercept, eq_std, eq_mxb
 
 
-def study_eccentricity(a,b=0.01):
+def study_eccentricity_h(a,b=0.01):
     while b < a:
         asq = a**2
         bsq = b**2
