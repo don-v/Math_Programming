@@ -307,7 +307,7 @@ def plot22(t1,t2,n=1000):
     theta = x[1][1]
     plt.plot(*plot_rtheta(r,theta))
     plt.show()
-    return None
+    return x
 
 def get_r22(deg,a=8,b=5):
     rad = np.deg2rad(deg)
@@ -509,4 +509,8 @@ def ret_binop(x,y):
     binary XOR (x ^ y): {ret_bin8(x ^ y):>8}
     binary XOR as dec:  {x ^ y:>8}
     """)
+    return None
+
+def print_polarcoords(t,r,n,m):
+    print(f'{t:>{n}}: {r:>{m}.2f}')
     return None
