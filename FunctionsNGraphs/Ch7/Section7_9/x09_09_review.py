@@ -71,8 +71,86 @@ def plot27r(t1,t2,n=1000):
     plt.show()
     return None
 
-def prt27(t1,t2,n=5):
-    pass
+def prt27_0(t1,t2,n=5):
+    x = rtheta27r(t1,t2,n=n)
+    return x[0]
+
+def prt27_1(t1,t2,n=5):
+    x = rtheta27r(t1,t2,n=n)
+    return x[1]
+
+def prt27_2(t1,t2,n=5):
+    x = rtheta27r(t1,t2,n=n)
+    for k,v in x[2].items():
+        print(f"{k:>5}: {eval(v['r']):>5.2f}")
+    return x[2] 
+
 
 
 # q27r end:
+
+
+
+
+# q28r start:
+
+def rtheta28r(t1,t2, a=9,b=2,c=1,n=5):
+    '''conchoid'''
+    theta=np.linspace(t1,t2,n)
+    r2 =  a*np.sin(b*theta)
+    # if r2 >= 0:
+    r = r2**(1/2) 
+    r_theta=np.vstack((np.rad2deg(theta),r)).T
+
+    table28r={}
+    for deg in range(0,375,15):
+        theta2 = np.deg2rad(deg)
+        _r2 = a*np.sin(b*theta)
+        r2 = _r2**(1/2) 
+        table28r[deg]={'r': f'{r2}', 'x,y': plot_rtheta(r2,theta2)}
+
+    return r_theta, (r,theta), table28r 
+
+def plot28r(t1,t2,n=1000):
+    x = rtheta28r(t1,t2,n=n)
+    r = x[1][0]
+    theta = x[1][1]
+    plt.plot(*plot_rtheta(r,theta))
+    plt.show()
+    return None
+
+def get_r28r(deg,a=9,b=2):
+    rad = np.deg2rad(deg)
+    r2 =  a*np.sin(b*rad)
+    r = sqrt(r2)
+    return r
+
+
+
+def prt28_0(t1,t2,n=5):
+    x = rtheta28r(t1,t2,n=n)
+    return x[0]
+
+def prt28_1(t1,t2,n=5):
+    x = rtheta28r(t1,t2,n=n)
+    return x[1]
+
+def prt28_2(t1,t2,n=5):
+    x = rtheta28r(t1,t2,n=n)
+    for k,v in x[2].items():
+        print(f"{k:>5}: {eval(v['r']):>5.2f}")
+    return x[2] 
+
+
+# q28r end:
+
+
+
+
+
+
+
+
+
+
+
