@@ -97,16 +97,17 @@ def prt27_2(t1,t2,n=5):
 def rtheta28r(t1,t2, a=9,b=2,c=1,n=5):
     '''conchoid'''
     theta=np.linspace(t1,t2,n)
-    r2 =  a*np.sin(b*theta)
-    # if r2 >= 0:
-    r = r2**(1/2) 
+    z =  a*np.sin(b*theta)
+    z[z<0] = np.nan
+    r = z**(1/2) 
     r_theta=np.vstack((np.rad2deg(theta),r)).T
 
     table28r={}
     for deg in range(0,375,15):
         theta2 = np.deg2rad(deg)
-        _r2 = a*np.sin(b*theta)
-        r2 = _r2**(1/2) 
+        z2 = a*np.sin(b*theta2)
+        z3 = z2 if z2 >=0 else np.nan
+        r2 = z3**(1/2) 
         table28r[deg]={'r': f'{r2}', 'x,y': plot_rtheta(r2,theta2)}
 
     return r_theta, (r,theta), table28r 
@@ -138,6 +139,7 @@ def prt28_1(t1,t2,n=5):
 def prt28_2(t1,t2,n=5):
     x = rtheta28r(t1,t2,n=n)
     for k,v in x[2].items():
+        # conditional execute if v ^= 'nan'
         print(f"{k:>5}: {eval(v['r']):>5.2f}")
     return x[2] 
 
