@@ -103,7 +103,7 @@ def rtheta28r(t1,t2, a=9,b=2,c=1,n=5):
     r_theta=np.vstack((np.rad2deg(theta),r)).T
 
     table28r={}
-    for deg in range(0,375,15):
+    for deg in range(0,361):
         theta2 = np.deg2rad(deg)
         z2 = a*np.sin(b*theta2)
         z3 = z2 if z2 >=0 else np.nan
@@ -140,12 +140,61 @@ def prt28_2(t1,t2,n=5):
     x = rtheta28r(t1,t2,n=n)
     for k,v in x[2].items():
         # conditional execute if v ^= 'nan'
-        print(f"{k:>5}: {eval(v['r']):>5.2f}")
+        sr = v['r'] if v['r'] == 'nan' else f"{eval(v['r']):>5.2f}"
+        print(f"{k:>5}: {sr}")
     return x[2] 
 
 
 # q28r end:
 
+
+# q29r start:
+
+def rtheta29r(t1,t2,n=5):
+    '''conchoid'''
+    theta=np.linspace(t1,t2,n)
+    r=theta/2
+    r_theta=np.vstack((np.rad2deg(theta),r)).T
+
+    table29r={}
+    for deg in range(0,375,15):
+        theta2 = np.deg2rad(deg)
+        r2=theta2/2 
+        table29r[deg]={'r': f'{r2}', 'x,y': plot_rtheta(r2,theta2)}
+
+    return r_theta, (r,theta), table29r 
+
+def plot29r(t1,t2,n=1000):
+    x = rtheta29r(t1,t2,n=n)
+    r = x[1][0]
+    theta = x[1][1]
+    plt.plot(*plot_rtheta(r,theta))
+    plt.show()
+    return None
+
+def get_r29r(deg):
+    rad = np.deg2rad(deg)
+    r = rad/2
+    return r
+
+def prt29_0(t1,t2,n=5):
+    x = rtheta29r(t1,t2,n=n)
+    return x[0]
+
+def prt29_1(t1,t2,n=5):
+    x = rtheta29r(t1,t2,n=n)
+    return x[1]
+
+def prt29_2(t1,t2,n=5):
+    z = rtheta29r(t1,t2,n=n)
+    for k,v in z[2].items():
+        r = eval(v['r'])
+        x,y = v['x,y']
+        print(f"{k:>5}: r={r:>5.2f}, x,y={x:>5.2f},{y:>5.2f}")
+    return z[2] 
+
+
+# q29r end:
 
 
 
