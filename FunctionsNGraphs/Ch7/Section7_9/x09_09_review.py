@@ -196,7 +196,42 @@ def prt29_2(t1,t2,n=5):
 
 # q29r end:
 
+# q41r start:
 
+def param_plot(points_dict):
+    for p in points_dict.values():
+        plt.plot(*p,marker='o', color='c')
+    plt.show()
+
+def ex41r(a,b,xexp:str, yexp:str,n=50,byk=False):
+    points_dict = {}
+    for t in np.linspace(a,b,n):
+        if abs(t) >0:
+            x = eval(xexp) 
+            y = eval(yexp)
+            points_dict[t] = (x,y)
+    sorted_x = sorted(points_dict.items(), key=lambda kv: kv[1][0])
+    if byk: return points_dict
+    return sorted_x
+
+
+# x=ex41r(0,4,'(1/t)+1','(2/t)-t',9)  
+# for k,v in x.items():
+#     print(f"{k:>5.2f}: {v[0]:>5.2f},{v[1]:>5.2f}")
+# param_plot(x)
+
+
+def prt_ex41r(points_dict):
+    if isinstance(points_dict, dict):
+        for k,v in points_dict.items():
+            print(f"{k:>5.2f}: {v[0]:>5.2f},{v[1]:>5.2f}")
+    else:
+        for tup in points_dict:
+            print(f"{tup[0]:>5.2f}: {tup[1][0]:>5.2f},{tup[1][1]:>5.2f}")
+
+
+
+# q41r end:
 
 
 
