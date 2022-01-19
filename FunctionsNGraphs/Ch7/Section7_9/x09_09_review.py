@@ -234,7 +234,7 @@ def q41r_rect(a=1.25,b=10,n=50):
 
 
 
-# q41r start:
+# q42r start:
 
 def ex42r(a,b,xexp:str, yexp:str,n=50,byk=False):
     points_dict = {}
@@ -257,9 +257,42 @@ def prt_ex42r(points_dict):
 
 
 
-def q42r_rect(a=1.25,b=10,n=50):
-    x = np.linspace(a,b,n)
-    y = ((2*((x-1)**2))-1)/(x-1)
+def q42r_rect(a=0,b=2,n=50):
+    y = np.linspace(a,b,n)
+    x = ((-1*(y**2)) + (2*y)) - 2
     return x,y
 
 # q42r end:
+
+
+# q43r start:
+
+def ex43r(a,b,xexp:str, yexp:str,n=50,byk=False):
+    points_dict = {}
+    for t in np.linspace(a,b,n):
+        x = eval(xexp) 
+        y = eval(yexp)
+        points_dict[t] = (x,y)
+    sorted_x = sorted(points_dict.items(), key=lambda kv: kv[1][0])
+    if byk: return points_dict
+    return sorted_x
+
+
+def prt_ex43r(points_dict):
+    if isinstance(points_dict, dict):
+        for k,v in points_dict.items():
+            print(f"{k:>5.2f}: {v[0]:>5.2f},{v[1]:>5.2f}")
+    else:
+        for tup in points_dict:
+            print(f"{tup[0]:>5.2f}: {tup[1][0]:>5.2f},{tup[1][1]:>5.2f}")
+
+
+
+def q43r_rect(a=0,b=10,n=50):
+    x = np.linspace(a,b,n)
+    xsq = x**2
+    negxsq = -1*xsq
+    y = 2**(negxsq)
+    return x,y
+
+# q43r end:
