@@ -296,3 +296,33 @@ def q43r_rect(a=0,b=10,n=50):
     return x,y
 
 # q43r end:
+
+
+# q44r start:
+
+def four_plot44r(a,b,n):
+    C1 = ('t', 'sqrt(t)')
+    C2 = ('t**2', 't')
+    C3 = ('1-((np.sin(t))**2)', 'np.cos(t)')
+    C4 = ('np.exp(2*t)','-1*np.exp(t)')
+
+    curves = [C1,C2,C3,C4]
+
+    curve_points = {}
+    for c in curves:
+        if c == C1:
+            curve_points[c] = theory_ex3(0.0000000001,b,c[0],c[1],n=n)
+        else:
+            curve_points[c] = theory_ex3(a,b,c[0],c[1],n=n)
+
+
+    len_pd = len(curve_points)
+    for i in range(len_pd):
+        plt.subplot(2,2,i+1)
+        for p in curve_points[curves[i]].values():
+            plt.plot(*p,marker='o', c='c')
+    return curves, curve_points
+
+# q44r end:
+
+# q45r -- need to update cos2phi in rotaiton_axes.py!
