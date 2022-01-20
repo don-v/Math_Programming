@@ -11,9 +11,15 @@ from x09_04_hyperbolas import *
 #     result_mat[i] = section95_mat[i,:]*mult[i]
 # print(result_mat.sum(axis=0))
 
-def eqn_to_cos2phi(a,b,c,d,e,f):
+def eqn_to_cot2phi(a,b,c,d,e,f):
     if b !=0:
-        cos2phi = (a-c)/b
+        cot2phi = (a-c)/b
+        cot2phi_num = a-c
+        cot2phi_den = b
+        neg = True if cot2phi < 0 else False
+        r = sqrt((cot2phi_num**2)+(cot2phi_den**2))
+        cos2phi = abs(cot2phi_num)/r
+        cos2phi = -cos2phi if neg else cos2phi
         return cos2phi
 
 def rot_axes(cos2phi):
@@ -38,7 +44,7 @@ def binom_xy(a,b):
 def rotated_coeffs(a,b,c,d,e,f):
     result_mat = np.ones((3,3))
     mult = np.array([a,b,c])
-    co,si = rot_axes(eqn_to_cos2phi(a,b,c,d,e,f))
+    co,si = rot_axes(eqn_to_cot2phi(a,b,c,d,e,f))
     cm = mat_maker2((3,3), *binom_x2y2(co,si), *binom_xy(co,si), *binom_x2y2(co,si,False))
     for i in range(cm.shape[0]):
         print(f'row {i}: {cm[i,:]*mult[i]}')
