@@ -326,3 +326,8 @@ def four_plot44r(a,b,n):
 # q44r end:
 
 # q45r -- need to update cos2phi in rotaiton_axes.py!
+
+def get_degphi(x, sin=True):
+    rad = np.arcsin(x) if sin else np.arccos(x)
+    deg = np.rad2deg(rad)
+    return deg
