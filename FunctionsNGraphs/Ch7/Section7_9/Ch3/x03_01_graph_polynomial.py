@@ -39,23 +39,38 @@ def eval_poly(p:str, c:dict, rangex:tuple, lst=None):
 
 def plot_poly(c:dict):
     plt.plot(*zip(*sorted(c.items()))); plt.show()
-    return None    
+    return None  
 
-def ax_tothe_n(a,n):
+def poly_pts_plot(n,rangex=None,lst=[-2,1,0,1,2],plot=True):
+        c = gen_coeffs(n)
+        p = gen_poly(n)
+        points = eval_poly(p,c,rangex,lst=lst)
+        if plot:
+            plot_poly(points)  
+            return points
+        return points
+
+def ax_tothe_n(a,n,pos=True,plot=False):
+    sign = 1 if pos else -1
     x=np.linspace(-5,5,1000)
-    y=a*(x**n)
+    y=sign*a*(x**n)
     plt.plot(x,y)
+    if plot: 
+        plt.show()
+        return None
     return None
 
-def n4_ax_tothe_n(a=1,n_=10):
-    for i in range(n_):
-        ax_tothe_n(a,i)
+def n4_ax_tothe_n(a=1,n_=10,pos=True):
+    inc = 1 if n_<10 else n_//10
+    for i in range(0,n_,inc):
+        ax_tothe_n(a,i,pos)
     plt.show()
     return None
 
-def a4_ax_tothe_n(a=10,n_=3):
-    for i in range(a):
-        ax_tothe_n(i,n_)
+def a4_ax_tothe_n(a=10,n_=3,pos=True):
+    inc = 1 if a<10 else a//10
+    for i in range(0,a,inc):
+        ax_tothe_n(i,n_,pos)
     plt.show()
     return None
 
