@@ -75,6 +75,19 @@ def a4_ax_tothe_n(a=10,n_=3,pos=True):
     return None
 
 
+
+def eval_poly(x, poly:str):
+    y = eval(poly)
+    return y
+
+def sign_change(x,poly:str):
+    pos = eval_poly(x,poly) > 0
+    zero = x
+    while not pos:
+        zero + .01
+        pos = eval_poly(zero,poly) > 0
+    return zero
+
 if __name__ == '__main__':
     if len(sys.argv) == 1:
         c = gen_coeffs()
