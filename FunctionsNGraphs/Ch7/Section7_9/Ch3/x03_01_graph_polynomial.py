@@ -74,42 +74,25 @@ def a4_ax_tothe_n(a=10,n_=3,pos=True):
     plt.show()
     return None
 
-
-
 def eval_poly(x, poly:str):
+    '''poly will be a string representation of a valid
+    python expression containing the variable x'''
     y = eval(poly)
     return y
 
-def sign_change(x,poly:str):
-    pos = eval_poly(x,poly) > 0
-    zero = x
-    while not pos:
-        zero + .01
-        pos = eval_poly(zero,poly) > 0
+def sign_change(x,poly:str, inc=.01):
+    zero = x + inc
+    pos = True if (eval_poly(zero,poly) > 0) else False
+    while zero:
+        pos1 = eval_poly(zero,poly) > 0
+        if pos1 == pos:
+            zero += inc
+        else:
+            return zero
+        
     return zero
 
 if __name__ == '__main__':
-    if len(sys.argv) == 1:
-        c = gen_coeffs()
-        p = gen_poly()
-        d = poly_display(c)
-        points = eval_poly(p,c,(-5,6))
-        print(f"""
-        n={2}
-        polynomial={d}
-        points = {points}
-        """)
-        plot_poly(points)
-    else:
-        n = int(sys.argv[1])
-        c = gen_coeffs(n)
-        p = gen_poly(n)
-        d = poly_display(c,n)
-        points = eval_poly(p,c,(-5,6))
-        print(f"""
-        n={n}
-        polynomial={d}
-        points = {points}
-        """)
-        plot_poly(points)
-
+    poly = 'x**5 + 2*x**4 + -6*x**3 + 2*x -3'
+    z = sign_change(1,poly)
+    print(z)
