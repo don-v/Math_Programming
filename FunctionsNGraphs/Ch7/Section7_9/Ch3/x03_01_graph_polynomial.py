@@ -41,7 +41,7 @@ def plot_poly(c:dict):
     plt.plot(*zip(*sorted(c.items()))); plt.show()
     return None  
 
-def poly_pts_plot(n,rangex=None,lst=[-2,1,0,1,2],plot=True):
+def poly_pts_plot(n,c=None,rangex=None,lst=[-2,1,0,1,2],plot=True):
         c = gen_coeffs(n)
         p = gen_poly(n)
         points = eval_poly(p,c,rangex,lst=lst)
@@ -74,7 +74,7 @@ def a4_ax_tothe_n(a=10,n_=3,pos=True):
     plt.show()
     return None
 
-def eval_poly(x, poly:str):
+def eval_poly2(x, poly:str):
     '''poly will be a string representation of a valid
     python expression containing the variable x'''
     y = eval(poly)
