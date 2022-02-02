@@ -42,13 +42,43 @@ def plot_poly(c:dict):
     return None  
 
 def poly_pts_plot(n,c=None,rangex=None,lst=[-2,1,0,1,2],plot=True):
-        c = gen_coeffs(n)
+        c = gen_coeffs(n) if not c else c
         p = gen_poly(n)
         points = eval_poly(p,c,rangex,lst=lst)
         if plot:
             plot_poly(points)  
             return points
         return points
+
+def get_modulo_n_points(mod,n,c=None):
+    lst = [x*.001 for x in range(-1000,1001)]
+    points = poly_pts_plot(n,c=c,lst=lst)
+    for j,(k,v) in enumerate(points.items()):
+        if j % mod == 0:
+            print(f'{k:>5.2f}: {v:>5.2f}')
+
+
+def poly_four_plot(n,c=None,lst=None):
+    '''
+    C1 = dict(a0 = 2, a1=0, a2=0, a3=2) 
+    C2 = dict(a0 = 2, a1=0, a2=0, a3=4) 
+    C3 = dict(a0 = 2, a1=0, a2=0, a3=.25) 
+    C4 = dict(a0 = 2, a1=0, a2=0, a3=-2) 
+    curves = [C1,C2,C3,C4]
+    '''
+    curves = c
+    lst = [x*.001 for x in range(-1000,1001)] if not lst else lst
+    
+    len_pd = len(curves)
+    for i in range(len_pd):
+        plt.subplot(2,2,i+1)
+        curve_points = poly_pts_plot(n,c=curves[i],lst=lst,plot=False)
+        for k,v in curve_points.items():
+            plt.plot(k,v,marker='o', c='c')
+    plt.show()
+    return None
+
+
 
 def ax_tothe_n(a,n,pos=True,plot=False):
     sign = 1 if pos else -1
