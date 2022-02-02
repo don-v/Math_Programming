@@ -50,8 +50,8 @@ def poly_pts_plot(n,c=None,rangex=None,lst=[-2,1,0,1,2],plot=True):
             return points
         return points
 
-def get_modulo_n_points(mod,n,c=None):
-    lst = [x*.001 for x in range(-1000,1001)]
+def get_modulo_n_points(mod,n,c=None,lst=None):
+    lst = [x*.001 for x in range(-1000,1001)] if not lst else lst
     points = poly_pts_plot(n,c=c,lst=lst)
     for j,(k,v) in enumerate(points.items()):
         if j % mod == 0:
@@ -112,9 +112,9 @@ def eval_poly2(x, poly:str):
 
 def sign_change(x,poly:str, inc=.01):
     zero = x + inc
-    pos = True if (eval_poly(zero,poly) > 0) else False
+    pos = True if (eval_poly2(zero,poly) > 0) else False
     while zero:
-        pos1 = eval_poly(zero,poly) > 0
+        pos1 = eval_poly2(zero,poly) > 0
         if pos1 == pos:
             zero += inc
         else:
@@ -123,6 +123,6 @@ def sign_change(x,poly:str, inc=.01):
     return zero
 
 if __name__ == '__main__':
-    poly = 'x**5 + 2*x**4 + -6*x**3 + 2*x -3'
-    z = sign_change(1,poly)
+    poly = '0.5*x**3 - 4'
+    z = sign_change(2,poly)
     print(z)
