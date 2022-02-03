@@ -15,7 +15,7 @@ import matplotlib.pyplot as plt
 def gen_coeffs(n=2):
     coeffs = dict()
     for x in range(n+1):
-        coeffs[f'a{x}'] = float(input(f'the value of a{x} is: '))
+        coeffs[f'a{x}'] = float(eval(input(f'the value of a{x} is: ')))
     return coeffs
 
 def gen_poly(n=2):
