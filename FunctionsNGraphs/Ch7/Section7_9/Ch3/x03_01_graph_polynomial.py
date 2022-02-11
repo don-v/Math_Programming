@@ -122,6 +122,27 @@ def sign_change(x,poly:str, inc=.01):
         
     return zero
 
+def successive_approx(a,b,inc,p:str):
+    vals = []
+    while a <= b:
+        f_a = eval_poly2(a,p)
+        print(f'{a:>5.2f}: {f_a:>5.2f}')
+        vals.append((a,f_a))
+        a += inc
+    return vals
+
+def get_sign_change(lst):        
+    sign1 = []
+    sign2 = []
+    pos = True if lst[0][1] > 0 else False
+    for idx,val in enumerate(lst):
+        pos1 = True if val[1] > 0 else False
+        if pos1 == pos:
+            sign1.append(val)
+        else: 
+            sign2.append(val)
+    return sign1[-1], sign2[0]
+
 if __name__ == '__main__':
     poly = '0.5*x**3 - 4'
     z = sign_change(2,poly)
