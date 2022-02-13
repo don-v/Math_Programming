@@ -126,7 +126,7 @@ def successive_approx(a,b,inc,p:str):
     vals = []
     while a <= b:
         f_a = eval_poly2(a,p)
-        print(f'{a:>5.2f}: {f_a:>5.2f}')
+        # print(f'{a:>5.2f}: {f_a:>5.2f}')
         vals.append((a,f_a))
         a += inc
     return vals
@@ -142,6 +142,19 @@ def get_sign_change(lst):
         else: 
             sign2.append(val)
     return sign1[-1], sign2[0]
+
+def prt_sign_change(x,dec=2):
+    for i in x:
+        print(f'{i[0]:>5.{dec}f}: {i[1]:>5.{dec}f}')
+    return None
+
+def do_calc_ex(n,a,b,c=None,p=None,lst=None,inc=.01):
+    c = gen_coeffs(n) if not c else c
+    p = poly_display(c,n) if not p else p
+    lst = successive_approx(a,b,inc,p)
+    x = get_sign_change(lst)
+    prt_sign_change(x,dec=len(str(inc))-2)
+    return None
 
 if __name__ == '__main__':
     poly = '0.5*x**3 - 4'
