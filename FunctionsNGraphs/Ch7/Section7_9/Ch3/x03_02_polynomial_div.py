@@ -1,4 +1,4 @@
-from . x03_01_graph_polynomial import *
+from Ch3.x03_01_graph_polynomial import *
 
 """
 DIVISION ALGORITHM FOR POLYNOMIALS
@@ -35,7 +35,6 @@ def elim_coeff(c1,c2):
     return (d1,d2),(co1,co2)
 
 if __name__ == '__main__':
-    from x03_01_graph_polynomial import *
     c = gen_coeffs(3)
     degree = get_degree(c)
     coeffs = get_coeffs(c)
