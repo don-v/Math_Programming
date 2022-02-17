@@ -63,24 +63,41 @@ def get_coeffs(c:dict):
     return coeffs
 
 def pad_coeffs(c1,c2):
-    if len(c1) != len(c2):
-        l1,l2=len(c1),len(c2)
-        diff = l1-l2
+    co1,co2=get_coeffs(c1), get_coeffs(c2)
+    if len(co1) != len(co2):
+        l1,l2=len(co1),len(co2)
+        diff = abs(l1-l2)
         zeros = [int(x*0) for x in range(diff)]
-        return zeros + c1
+        return zeros + co1
     return None
 
 def get_mult(x,y):
     return -x/y
 
 def mult_coeffs(c:list, mult):
-    return map(lambda x: x*mult, c)
+    return list(map(lambda x: x*mult, c))
 
 def add_poly(c1,c2):
     return map(sum,zip(c1,c2))
 
 def lst_to_poly(lst):
-    pass
+    cee=dict()
+    for i in range(len(lst)): 
+        cee[f'a{i}'] = lst[len(lst)-1-i]
+    return cee
+
+def poly_div(c1,c2,qx=[]):
+    d1,d2 = get_degree(c1), get_degree(c2)
+    co1,co2 = get_coeffs(c1), get_coeffs(c2)
+    mult=get_mult(co2[0],co1[0])
+    qx.append(mult)
+    co1m=mult_coeffs(co1,mult)
+    co1p=pad_coeffs(co1m,co2)
+    rx = add_poly(co1p,co2)
+    if get_degree(rx) < d1: 
+        return qx,rx
+    else:
+        poly_div(c1)
 
 if __name__ == '__main__':
     c = gen_coeffs(3)
