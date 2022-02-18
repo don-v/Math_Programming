@@ -51,8 +51,8 @@ repeat the previous step!
     
 """
 
-def get_degree(c:dict):
-    deg = len(c.keys())-1
+def get_degree(c):
+    deg = len(c)-1
     return deg
 
 def get_coeffs(c:dict):
@@ -72,13 +72,16 @@ def pad_coeffs(c1,c2):
     return None
 
 def get_mult(x,y):
-    return -x/y
+    return x/y
 
 def mult_coeffs(c:list, mult):
     return list(map(lambda x: x*mult, c))
 
+def minus(x,y):
+    return x-y
+
 def add_poly(c1,c2):
-    return map(sum,zip(c1,c2))
+    return list(map(minus,*zip(c1,c2)))
 
 def lst_to_poly(lst):
     cee=dict()
@@ -86,24 +89,39 @@ def lst_to_poly(lst):
         cee[f'a{i}'] = lst[len(lst)-1-i]
     return cee
 
-def poly_div(c1,c2,qx=[]):
+def clst_expansion(lst,deg):
+    llist=len(lst)
+    if llist == deg + 1:
+        return lst
+    else:
+        diff = abs((deg+1) - llist)
+        for i in range(diff):
+            lst.append(0)
+        return lst
+        
+def poly_div(c1,c2,q=[]):
+    """
+    passing wrong type to pad_coeffs, but actually
+    don't need pad_coeffs, instead, we need clst_expansion!
+    or actually, instead of padding at the front, need
+    to append 0 to the back of the list! 
+    """
     d1,d2 = get_degree(c1), get_degree(c2)
     co1,co2 = get_coeffs(c1), get_coeffs(c2)
     mult=get_mult(co2[0],co1[0])
-    qx.append(mult)
+    q.append(mult)
     co1m=mult_coeffs(co1,mult)
     co1p=pad_coeffs(co1m,co2)
     rx = add_poly(co1p,co2)
+    qx = clst_expansion(q,d2-d1)
     if get_degree(rx) < d1: 
         return qx,rx
     else:
-        poly_div(c1)
+        c2_ = lst_to_poly(rx)
+        poly_div(c1,c2_,q)
 
 if __name__ == '__main__':
-    c = gen_coeffs(3)
-    degree = get_degree(c)
-    coeffs = get_coeffs(c)
-    p = poly_display(c,degree)
-    print(p)
-    print('the degree is:',degree)
-    print('the coeffs are:', coeffs)
+    c1=gen_coeffs(1)
+    c2=gen_coeffs(4)
+    qx,rx = poly_div(c1,c2)
+    print(f'qx:{qx}, rx:{rx}')
