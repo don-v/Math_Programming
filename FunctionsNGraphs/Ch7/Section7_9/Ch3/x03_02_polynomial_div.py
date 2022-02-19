@@ -32,12 +32,12 @@ to eliminate the coefficients of the dividend
 polynomial, we find a real number that we can multiply
 the coeffiecients of our our divisor by to produce
 an intermediate polynomial, I'll call i(x), such
-that when we add i(x) to the our dividend, we eliminate
-the term (a_n*x**n) from the dividend.  this will
-produce a new 'dividend', and a remainder.
+that when we subtract i(x) to the our dividend, we 
+eliminate the term (a_n*x**n) from the dividend.  this 
+will produce a new 'dividend', and a remainder.
 
-so after each addition of our i(x) to the dividend,
-we store 3 things: 
+so after each subtraction of our updated i(x) from 
+the dividend, we store 3 things: 
 
 1. the multiplier, 
 2. the updated dividend after adding the previous 
@@ -47,15 +47,24 @@ dividend to the i(x), and
 we check to see what the degree is of our intermediate
 remainder polynomial, if it is less than that of our
 divisor, we are done, otherwise, we continue and
-repeat the previous step! 
+repeat the previous steps! 
     
 """
 
 def get_degree(c):
+    """returns the degree of a polynomial specified
+    using either a list of coefficients, or a dict of
+    coefficients"""
+
     deg = len(c)-1
     return deg
 
 def get_coeffs(c:dict):
+    """extracts the coefficients of a polynomial specified
+    as a dict and returns a list of the coefficinets, ordered
+    from [n, n-1, ..., 0], where n represetns the degree
+    of the polynomial term"""
+
     n = get_degree(c)
     coeffs = []
     for i in range(n,-1,-1):
@@ -63,6 +72,12 @@ def get_coeffs(c:dict):
     return coeffs
 
 def pad_coeffs(c1,c2):
+    """c1 and c2 represent lists of coefficients of 
+    different lengths, but that represetns polynomials
+    of identical degree, and in order for corresponding 
+    elements of them to be added, zeros are added to the 
+    end of the shorter list of coefficients """
+
     co1,co2=c1,c2
     if len(co1) != len(co2):
         l1,l2=len(co1),len(co2)
@@ -72,24 +87,55 @@ def pad_coeffs(c1,c2):
     return co1
 
 def get_mult(x,y):
+    """returns the factor by which the divisor is multiplied
+    such that when the the product of the divisor and multiplier
+    is substracted from the dividend, the highest order term of
+    the dividend is eliminated"""
+
     return x/y
 
 def mult_coeffs(c:list, mult):
+    """function used to multiply every element of a list
+    by a constant factor, 'mult'"""
+
     return list(map(lambda x: x*mult, c))
 
 def minus(tup):
+    """returns the result of subtracting the 2nd term of
+    a tuple from the 1st term"""
+
     return tup[0]-tup[1]
 
-def add_poly(c1,c2):
+def sub_poly(c1,c2):
+    """returns the result of subtracting corresponding
+    elements of lists of the same length. the corresponding 
+    elements of c2 are subtracted from c1"""
+
     return list(map(minus,zip(c1,c2)))
 
 def lst_to_poly(lst):
+    """converts a list of polynomial coefficients ordered
+    in decreasing polynomial term degree with increasing 
+    list index to a dict of coefficients that has its keys indexed
+    from a0 to an"""
+
     cee=dict()
     for i in range(len(lst)): 
         cee[f'a{i}'] = lst[len(lst)-1-i]
     return cee
 
 def clst_expansion(lst,deg):
+    """given a list of coefficients that should correspond
+    to a specified polynomial degree, zeros are added to the
+    list at the end of the list to match the length of a list
+    of polynomial specified polynomial degree.
+    
+    for example, if a list of polynomial coefficients is to
+    represent a polynomial of degree 3, it should have a length
+    of 4, so if this function is presented with a polynomial
+    cofficient list of length 1, and it should be length 4, 3
+    zeros are appened to the end of the list"""
+
     llist=len(lst)
     if llist == deg + 1:
         return lst
@@ -101,10 +147,9 @@ def clst_expansion(lst,deg):
         
 def poly_div(c1,c2,q=[],n=0):
     """
-    passing wrong type to pad_coeffs, but actually
-    don't need pad_coeffs, instead, we need clst_expansion!
-    or actually, instead of padding at the front, need
-    to append 0 to the back of the list! 
+    a recursive function that carries out polynomial division,
+    where c1 represents the divisor, and c2 the dividend, and
+    returns the quotient and remainder of the division
     """
     d1,d2 = get_degree(c1), get_degree(c2)
     co1,co2 = get_coeffs(c1), get_coeffs(c2)
@@ -112,7 +157,7 @@ def poly_div(c1,c2,q=[],n=0):
     q.append(mult)
     co1m=mult_coeffs(co1,mult)
     co1p=pad_coeffs(co1m,co2)
-    rx = add_poly(co2,co1p)[1:]
+    rx = sub_poly(co2,co1p)[1:]
     qx = clst_expansion(q[:],d2+n-d1)
     if get_degree(rx) < d1:
         return qx,rx
@@ -120,6 +165,14 @@ def poly_div(c1,c2,q=[],n=0):
         n +=1
         c2_ = lst_to_poly(rx)
         return poly_div(c1,c2_,q,n)
+
+def poly_display_from_list(lst):
+    """takes a list of polynomial coefficients, ordered
+    in decreasing polynomial degree with increasing list 
+    index and returns a string representation of a polynomial"""
+    coeff_dict=lst_to_poly(lst)
+    degree=get_degree(lst)
+    return poly_display(coeff_dict,degree)
 
 if __name__ == '__main__':
     c1=gen_coeffs(1)
