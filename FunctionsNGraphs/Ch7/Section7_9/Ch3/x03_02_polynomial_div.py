@@ -175,7 +175,9 @@ def poly_display_from_list(lst):
     return poly_display(coeff_dict,degree)
 
 if __name__ == '__main__':
-    c1=gen_coeffs(1)
-    c2=gen_coeffs(4)
-    q,r = poly_div(c1,c2)
-    print(f'q:{q}; r:{r}')
+    c1=[2,0,-1,4]
+    c2=[3,-1,-1,3,4]
+    divisor = lst_to_poly(c1)
+    dividend = lst_to_poly(c2)
+    q,r = poly_div(divisor,dividend)
+    print(f'q:{poly_display_from_list(q)}; r:{poly_display_from_list(r)}')
