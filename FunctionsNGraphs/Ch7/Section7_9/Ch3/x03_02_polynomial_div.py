@@ -153,6 +153,8 @@ def poly_div(c1,c2,q=[],n=0):
     """
     d1,d2 = get_degree(c1), get_degree(c2)
     co1,co2 = get_coeffs(c1), get_coeffs(c2)
+    if d2 < d1:
+        return 0,co2
     mult=get_mult(co2[0],co1[0])
     q.append(mult)
     co1m=mult_coeffs(co1,mult)
@@ -166,17 +168,21 @@ def poly_div(c1,c2,q=[],n=0):
         c2_ = lst_to_poly(rx)
         return poly_div(c1,c2_,q,n)
 
-def poly_display_from_list(lst):
-    """takes a list of polynomial coefficients, ordered
+def poly_display_from_list(x):
+    """if x is a list of polynomial coefficients, ordered
     in decreasing polynomial degree with increasing list 
-    index and returns a string representation of a polynomial"""
-    coeff_dict=lst_to_poly(lst)
-    degree=get_degree(lst)
-    return poly_display(coeff_dict,degree)
+    index then it returns a string representation of a polynomial,
+    otherwise, it returns x"""
+    if isinstance(x,list):
+        coeff_dict=lst_to_poly(x)
+        degree=get_degree(x)
+        return poly_display(coeff_dict,degree)
+    else:
+        return x
 
 if __name__ == '__main__':
-    c1=[2,0,-1,4]
-    c2=[3,-1,-1,3,4]
+    c1=[1,-4]
+    c2=[2,-1,-5,3]
     divisor = lst_to_poly(c1)
     dividend = lst_to_poly(c2)
     q,r = poly_div(divisor,dividend)
