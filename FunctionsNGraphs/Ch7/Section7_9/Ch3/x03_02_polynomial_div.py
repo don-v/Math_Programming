@@ -1,4 +1,5 @@
 from Ch3.x03_01_graph_polynomial import *
+import re
 
 """
 DIVISION ALGORITHM FOR POLYNOMIALS
@@ -179,6 +180,16 @@ def poly_display_from_list(x):
         return poly_display(coeff_dict,degree)
     else:
         return x
+
+def remainder_theorem(coeff_list, x):
+    factor = [1,-x]
+    divisor,dividend = lst_to_poly(factor), lst_to_poly(coeff_list)
+    q,r = poly_div(divisor,dividend)
+    degree = get_degree(dividend)
+    poly = poly_display(dividend,degree)
+    f_at_x = eval_poly2(x,poly)
+    print()
+    return None
 
 if __name__ == '__main__':
     c1=[1,-4]
