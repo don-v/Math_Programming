@@ -181,15 +181,35 @@ def poly_display_from_list(x):
     else:
         return x
 
+def eval_remainder_at_x(r,x):
+    '''evaluate the remainder polynomial at x. note:
+    the remainder polynomial is of degree 0, when we have
+    divisor of degree 1: x-c, for some real constant c'''
+    remainder_coeffs_dict = lst_to_poly(r)
+    remainder_degree=get_degree(r)
+    remainder_poly = poly_display(remainder_coeffs_dict,remainder_degree)
+    remainder_eval_at_x=eval_poly2(x,remainder_poly)
+    return remainder_eval_at_x
+
 def remainder_theorem(coeff_list, x):
+    '''Remainder Theorem: If a polynomial f(x) is divided by x-c, 
+    then the remainder, r(x), is f(c)'''
     factor = [1,-x]
     divisor,dividend = lst_to_poly(factor), lst_to_poly(coeff_list)
     q,r = poly_div(divisor,dividend)
     degree = get_degree(dividend)
     poly = poly_display(dividend,degree)
     f_at_x = eval_poly2(x,poly)
-    print()
-    return None
+    remainder_eval_at_x=eval_remainder_at_x(r,x)
+    print(f'''{'*'*len('remainder from polynomial division:')}
+    remainder from polynomial division:
+    {r}
+    evaluating polynomial at c:
+    {f_at_x}
+    does the remainder polynomial equal the value of the function at c?
+    {'Yes it does!' if remainder_eval_at_x==f_at_x else "No, No it doesn't!"}''')
+    
+    return r, f_at_x
 
 if __name__ == '__main__':
     c1=[1,-4]
