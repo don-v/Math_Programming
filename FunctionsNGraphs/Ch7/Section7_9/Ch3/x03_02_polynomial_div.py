@@ -211,6 +211,10 @@ def remainder_theorem(coeff_list, x):
     
     return r, f_at_x
 
+def eval_poly3(coeff_list):
+    ['x**{}'.format(x) for x in range(3,-1,-1)]
+    pass
+
 if __name__ == '__main__':
     c1=[1,-4]
     c2=[2,-1,-5,3]
