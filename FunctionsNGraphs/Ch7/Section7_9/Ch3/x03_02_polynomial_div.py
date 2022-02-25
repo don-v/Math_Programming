@@ -191,15 +191,26 @@ def eval_remainder_at_x(r,x):
     remainder_eval_at_x=eval_poly2(x,remainder_poly)
     return remainder_eval_at_x
 
+def eval_poly3(x,coeff_list):
+    '''evaluate a polynomial function at x given the complete
+    list of polynomial coefficients in a list thatk decrease in
+    degree with increasing list index'''
+    degree = get_degree(coeff_list)
+    poly_terms=('x**{}'.format(x) for x in range(degree,-1,-1))
+    sum = 0
+    for coeff in coeff_list:
+        eval_term = eval(poly_terms.__next__())
+        product = coeff*eval_term
+        sum += product
+    return sum
+
 def remainder_theorem(coeff_list, x):
     '''Remainder Theorem: If a polynomial f(x) is divided by x-c, 
     then the remainder, r(x), is f(c)'''
     factor = [1,-x]
     divisor,dividend = lst_to_poly(factor), lst_to_poly(coeff_list)
     q,r = poly_div(divisor,dividend)
-    degree = get_degree(dividend)
-    poly = poly_display(dividend,degree)
-    f_at_x = eval_poly2(x,poly)
+    f_at_x = eval_poly3(x,coeff_list)
     remainder_eval_at_x=eval_remainder_at_x(r,x)
     print(f'''{'*'*len('remainder from polynomial division:')}
     remainder from polynomial division:
@@ -211,14 +222,9 @@ def remainder_theorem(coeff_list, x):
     
     return r, f_at_x
 
-def eval_poly3(coeff_list):
-    ['x**{}'.format(x) for x in range(3,-1,-1)]
-    pass
-
 if __name__ == '__main__':
-    c1=[1,-4]
-    c2=[2,-1,-5,3]
-    divisor = lst_to_poly(c1)
-    dividend = lst_to_poly(c2)
-    q,r = poly_div(divisor,dividend)
-    print(f'q:{poly_display_from_list(q)}; r:{poly_display_from_list(r)}')
+    k=17/12
+    coeff_list=[1,k,-k,10]
+    c=-3
+    fx = eval_poly3(c,coeff_list)
+    print(fx)
