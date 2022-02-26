@@ -222,6 +222,25 @@ def remainder_theorem(coeff_list, x):
     
     return r, f_at_x
 
+def build_poly(degree, known_coeffs:dict):
+    '''builds a complete list of polynomial coefficinets
+    when we supply a dictionary of the known non-zero
+    coefficients, dictionary format: 
+    known_coeffs=dict(
+        a{n}=coefficient_{n}, 
+        a{n}-1=coefficinet_{n-1},
+        ...,
+        a{0}=coefficinet_{0})
+    where n is a positive integer representing the degree
+    of the polynomial and coefficinet_{n} represents
+    the coefficient corrreponding to the nth term 
+    of the polynomial)'''
+    poly = [0*x for x in range(degree+1)]
+    for k,v in known_coeffs.items():
+        idx = degree-eval(k[1:])
+        poly[idx] = v
+    return poly
+
 if __name__ == '__main__':
     k=17/12
     coeff_list=[1,k,-k,10]
