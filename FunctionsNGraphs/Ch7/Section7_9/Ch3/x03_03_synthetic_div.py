@@ -26,10 +26,28 @@ def list_poly_div(c1,c2,q=[],n=0):
         c2_ = rx
         return list_poly_div(c1,c2_,q,n)
 
+def synthetic_division(c,dividend):
+    '''c is the real number in the factor "x-c"; 
+    dividend is the list of polynomial coefficient for
+    the dividend, including "0"s for "missing' coefficient
+    terms. the coefficients correspond to polynomial terms in 
+    decreasing degree order with increasin list index. '''
+    row1=dividend.copy()
+    row2=[0]
+    row3=row2.copy()
+    for i in range(len(dividend)):
+        if i == 0:
+            row3[i] = row1[i]
+        else:
+            row2.append(c*row3[i-1])
+            row3.append(row1[i] + row2[i])
+    return row3
+
+
+
 if __name__ == '__main__':
-    c1 = [1,-2]
+    c1 = 2
     c2 = [3,-8,0,9,5]
-    qx,rx = list_poly_div(c1,c2)
-    print('qx:', qx)
-    print('rx:', rx)
+    row3 = synthetic_division(c1,c2)
+    print(row3)
     
