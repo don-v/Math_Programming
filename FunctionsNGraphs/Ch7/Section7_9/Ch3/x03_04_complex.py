@@ -1,5 +1,6 @@
 from Ch3.x03_03_synthetic_div import *
-import cmath
+import math, cmath
+from x09_09_review import *
 
 def add_complex(z1,z2):
     """adds two complex numbers where z1 and z2
@@ -61,6 +62,39 @@ def simplify_complex_fraction(numerator, denominator):
         {const}                     {const}"""
 
     return (1/const)*result, s
+
+
+def complex_roots():
+    a=int(input("enter a: "))
+    b=int(input("enter b: "))
+    c=int(input("enter c: "))
+    d=((math.pow(b,2))-(4*a*c))
+    if a!=0:
+        if d>0:
+           x1=(-b+math.sqrt(d))/(2*a)
+           x2=(-b-math.sqrt(d))/(2*a)
+           print("x1=",x1," and x2=",x2)
+           print("real root")
+        elif d==0:
+           x=-b/(2*a)
+           print("x=",x)
+           print("equal root" )
+        elif d<0:
+            x1=(-b+cmath.sqrt(d))/(2*a)
+            x2=(-b-cmath.sqrt(d))/(2*a)
+            print("x1=",x1," and x2=",x2)
+            print("complex root")
+    else:
+        print("this is not quadratic equation")
+
+def csqrt(x):
+    """returns the square root of a real number in
+    complex form; can handle the case of a real number
+    less than 0!"""
+    if x < 0:
+        return complex(0,math.sqrt(-x))
+    else: return complex(math.sqrt(x),0)
+
 
 if __name__ == '__main__':
     z1,z2 = gen_n_complex()
