@@ -1,4 +1,5 @@
 from Ch3.x03_04_complex import *
+from itertools import product
 
 def is_pos(x):
     """returns a boolean value for testing if x is positive"""
@@ -72,13 +73,37 @@ def get_nonzero_coeff_list(x):
     x.append(last_element)
     return x
 
+def descarte_possibles(x):
+    possible_zeros = list()
+    for i in range(x):
+        x = x-2*i
+        if x >= 0: possible_zeros.append(x)
+    return possible_zeros
+
+def gen_descarte_summary(coeff_list_fx):
+    degree = get_degree(coeff_list_fx)
+    coeff_list_fnegx = fx_fnegx_coeff_list(coeff_list_fx.copy(), False)
+    nz_coeff_list_fx = get_nonzero_coeff_list(coeff_list_fx.copy())
+    nz_coeff_list_fnegx = get_nonzero_coeff_list(coeff_list_fnegx.copy())
+    real_pos_roots_max = get_descarte_signs(nz_coeff_list_fx)
+    real_neg_roots_max = get_descarte_signs(nz_coeff_list_fnegx)
+    real_pos = descarte_possibles(real_pos_roots_max)
+    real_neg = descarte_possibles(real_neg_roots_max)
+    combos=list(product(real_pos,real_neg))
+    k = ['rp', 'rn', 'c', 't']
+    combo_dict = dict.fromkeys(k)
+    for combo in combos:
+        pass
+
+
+
 if __name__ == '__main__':
     coeff_list_fx = [2,-7,0,3,6,-5]
     coeff_list_fnegx = fx_fnegx_coeff_list(coeff_list_fx.copy(), False)
     nz_coeff_list_fx = get_nonzero_coeff_list(coeff_list_fx.copy())
     nz_coeff_list_fnegx = get_nonzero_coeff_list(coeff_list_fnegx.copy())
     real_pos_roots_max = get_descarte_signs(nz_coeff_list_fx)
-    real_neg_roots_min = get_descarte_signs(nz_coeff_list_fnegx)
+    real_neg_roots_max = get_descarte_signs(nz_coeff_list_fnegx)
     fx = poly_display_from_list(coeff_list_fx)
     fnegx = poly_display_from_list(coeff_list_fnegx)
     print(f"""
@@ -87,13 +112,14 @@ if __name__ == '__main__':
         {fx}
     
     By Descartes' Rule of Signs:
-    there are at most {real_pos_roots_max} positive real roots.
+    there are at most {real_pos_roots_max} pos
+    itive real roots.
     
     by evaluating f(-x), we get the polynomial: 
 
         {fnegx}
     
     from the polynomial form of f(-x), we see, again by Descartes' Rule 
-    of Signs, that there are at most {real_neg_roots_min} negative 
+    of Signs, that there are at most {real_neg_roots_max} negative 
     real roots.    
     """)
