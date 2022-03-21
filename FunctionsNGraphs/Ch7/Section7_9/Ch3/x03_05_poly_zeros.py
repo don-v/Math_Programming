@@ -112,7 +112,10 @@ def gen_descarte_summary(coeff_list_fx):
         results[i] = result_dict
     return results
         
-
+def check_poly_boundary(qr: list, bound='upper') -> bool:
+    
+    
+    pass
 
 
 if __name__ == '__main__':
