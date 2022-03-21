@@ -75,12 +75,22 @@ def get_nonzero_coeff_list(x):
 
 def descarte_possibles(x):
     possible_zeros = list()
+    if x == 0: return [0]
     for i in range(x):
         x = x-2*i
         if x >= 0: possible_zeros.append(x)
     return possible_zeros
 
 def gen_descarte_summary(coeff_list_fx):
+    """returns a dict of child dicts, where each
+    child dict contains the keys 'rp', 'rn', 'c' and
+    't', which represent the number of real positive, 
+    real negative, complex, and total , respectively for a 
+    coefficient list for all polynomial terms from degree 
+    n, n-1,... , 0 (this implies, that polynomial terms
+    with zero coeffients are included in the coefficient
+    list supplied to this function!)
+    """
     degree = get_degree(coeff_list_fx)
     coeff_list_fnegx = fx_fnegx_coeff_list(coeff_list_fx.copy(), False)
     nz_coeff_list_fx = get_nonzero_coeff_list(coeff_list_fx.copy())
@@ -92,34 +102,45 @@ def gen_descarte_summary(coeff_list_fx):
     combos=list(product(real_pos,real_neg))
     k = ['rp', 'rn', 'c', 't']
     combo_dict = dict.fromkeys(k)
-    for combo in combos:
-        pass
+    results = dict()
+    for i in range(len(combos)):
+        result_dict = combo_dict.copy()
+        result_dict['rp'] = combos[i][0]
+        result_dict['rn'] = combos[i][1]
+        result_dict['c'] = degree - (combos[i][0] + combos[i][1])
+        result_dict['t'] = degree
+        results[i] = result_dict
+    return results
+        
 
 
 
 if __name__ == '__main__':
-    coeff_list_fx = [2,-7,0,3,6,-5]
-    coeff_list_fnegx = fx_fnegx_coeff_list(coeff_list_fx.copy(), False)
-    nz_coeff_list_fx = get_nonzero_coeff_list(coeff_list_fx.copy())
-    nz_coeff_list_fnegx = get_nonzero_coeff_list(coeff_list_fnegx.copy())
-    real_pos_roots_max = get_descarte_signs(nz_coeff_list_fx)
-    real_neg_roots_max = get_descarte_signs(nz_coeff_list_fnegx)
-    fx = poly_display_from_list(coeff_list_fx)
-    fnegx = poly_display_from_list(coeff_list_fnegx)
-    print(f"""
-    for the polynomial f(x): 
+    coeff_list_fx = [3,0,4,0,2,-5]
+    x = gen_descarte_summary(coeff_list_fx)
+    for v in x.values():
+        print(v)
+    # coeff_list_fnegx = fx_fnegx_coeff_list(coeff_list_fx.copy(), False)
+    # nz_coeff_list_fx = get_nonzero_coeff_list(coeff_list_fx.copy())
+    # nz_coeff_list_fnegx = get_nonzero_coeff_list(coeff_list_fnegx.copy())
+    # real_pos_roots_max = get_descarte_signs(nz_coeff_list_fx)
+    # real_neg_roots_max = get_descarte_signs(nz_coeff_list_fnegx)
+    # fx = poly_display_from_list(coeff_list_fx)
+    # fnegx = poly_display_from_list(coeff_list_fnegx)
+    # print(f"""
+    # for the polynomial f(x): 
         
-        {fx}
+    #     {fx}
     
-    By Descartes' Rule of Signs:
-    there are at most {real_pos_roots_max} pos
-    itive real roots.
+    # By Descartes' Rule of Signs:
+    # there are at most {real_pos_roots_max} pos
+    # itive real roots.
     
-    by evaluating f(-x), we get the polynomial: 
+    # by evaluating f(-x), we get the polynomial: 
 
-        {fnegx}
+    #     {fnegx}
     
-    from the polynomial form of f(-x), we see, again by Descartes' Rule 
-    of Signs, that there are at most {real_neg_roots_max} negative 
-    real roots.    
-    """)
+    # from the polynomial form of f(-x), we see, again by Descartes' Rule 
+    # of Signs, that there are at most {real_neg_roots_max} negative 
+    # real roots.    
+    # """)
