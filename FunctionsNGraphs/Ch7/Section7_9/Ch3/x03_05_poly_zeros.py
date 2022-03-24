@@ -113,7 +113,14 @@ def gen_descarte_summary(coeff_list_fx):
     return results
         
 def check_poly_boundary(qr: list, bound='upper') -> bool:
-    
+    """Suppose that f(x) is a polynomial with real coefficients
+    and positive leading coefficient, and that f(x) is divided
+    synthetically by x-c:
+        i.) if c > 0 and if all numbers in the third row of the division
+        process are either positive or zero, then c is an upper bound for
+        the real solutions of the equation f(x) = 0
+        
+        ii.) If c < 0 and if the numbers in the third row of the d"""
     
     pass
 
