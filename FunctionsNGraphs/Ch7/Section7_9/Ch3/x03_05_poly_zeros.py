@@ -120,9 +120,33 @@ def check_poly_boundary(qr: list, bound='upper') -> bool:
         process are either positive or zero, then c is an upper bound for
         the real solutions of the equation f(x) = 0
         
-        ii.) If c < 0 and if the numbers in the third row of the d"""
+        ii.) If c < 0 and if the numbers in the third row of the
+        division process are alternately positive and negative (
+        where a 0 in the third row is considered to be either 
+        positive or negative), the nc is a lwoer bound for the 
+        real solutions of the equation f(x) = 0"""
     
-    pass
+    if bound:
+        if all(qr) >=0:
+            return True
+    else:
+        if qr[0] > 0:
+            return get_every_other_list_element(qr[1:],pos=False)
+        elif qr[0] < 0:
+            return get_every_other_list_element(qr[1:])
+        
+
+def get_every_other_list_element(x:list, pos=True):
+    every_other_element = list()
+    for i in range(len(x)):
+        if i % 2 == 0:
+            every_other_element.append(x[i])
+
+    if pos:
+        return all(every_other_element) >= 0
+    else:
+        return all(every_other_element) <= 0
+
 
 
 if __name__ == '__main__':
