@@ -131,9 +131,11 @@ def check_poly_boundary(qr: list, bound='upper') -> bool:
             return True
     else:
         if qr[0] > 0:
-            return get_every_other_list_element(qr[1:],pos=False)
+            return get_every_other_list_element(qr[1:],pos=False) and \
+                get_every_other_list_element(qr[0:])
         elif qr[0] < 0:
-            return get_every_other_list_element(qr[1:])
+            return get_every_other_list_element(qr[1:]) and \
+                get_every_other_list_element(qr[0:],pos=False)
         
 
 def get_every_other_list_element(x:list, pos=True):
@@ -150,10 +152,21 @@ def get_every_other_list_element(x:list, pos=True):
 
 
 if __name__ == '__main__':
-    coeff_list_fx = [3,0,4,0,2,-5]
-    x = gen_descarte_summary(coeff_list_fx)
-    for v in x.values():
-        print(v)
+    x = [x for x in range(1,6)]
+    x1 = [x*(-1)**n for n,x in enumerate(range(1,6))]
+    x2 = [x*(-1)**(n+1) for n,x in enumerate(range(1,6))]
+
+    xs = [x,x1,x2]
+    for e in xs:
+        print(f'list: {e}')
+        print(f'1st element pos: {get_every_other_list_element(e)}')
+        print(f'1st element negative: {get_every_other_list_element(e,pos=False)}')
+
+
+    # coeff_list_fx = [3,0,4,0,2,-5]
+    # x = gen_descarte_summary(coeff_list_fx)
+    # for v in x.values():
+    #     print(v)
     # coeff_list_fnegx = fx_fnegx_coeff_list(coeff_list_fx.copy(), False)
     # nz_coeff_list_fx = get_nonzero_coeff_list(coeff_list_fx.copy())
     # nz_coeff_list_fnegx = get_nonzero_coeff_list(coeff_list_fnegx.copy())
