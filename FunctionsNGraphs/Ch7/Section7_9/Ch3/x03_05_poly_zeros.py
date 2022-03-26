@@ -112,7 +112,7 @@ def gen_descarte_summary(coeff_list_fx):
         results[i] = result_dict
     return results
         
-def check_poly_boundary(qr: list, bound='upper') -> bool:
+def check_poly_boundary(qr: list, upper=True) -> bool:
     """Suppose that f(x) is a polynomial with real coefficients
     and positive leading coefficient, and that f(x) is divided
     synthetically by x-c:
@@ -126,8 +126,9 @@ def check_poly_boundary(qr: list, bound='upper') -> bool:
         positive or negative), the nc is a lwoer bound for the 
         real solutions of the equation f(x) = 0"""
     
-    if bound:
-        if all(qr) >=0:
+    if upper:
+        greater_0 = list(filter(lambda x: x >=0, qr))
+        if len(greater_0) > 0:
             return True
     else:
         if qr[0] > 0:
@@ -145,10 +146,17 @@ def get_every_other_list_element(x:list, pos=True):
             every_other_element.append(x[i])
 
     if pos:
-        return all(every_other_element) >= 0
-    else:
-        return all(every_other_element) <= 0
 
+        greater_0 = list(filter(lambda x: x >=0, every_other_element))
+        if len(greater_0) > 0:
+            return True
+        return False
+
+    else:
+        greater_0 = list(filter(lambda x: x <=0, every_other_element))
+        if len(greater_0) > 0:
+            return True
+        return False
 
 
 if __name__ == '__main__':
@@ -159,8 +167,8 @@ if __name__ == '__main__':
     xs = [x,x1,x2]
     for e in xs:
         print(f'list: {e}')
-        print(f'1st element pos: {get_every_other_list_element(e)}')
-        print(f'1st element negative: {get_every_other_list_element(e,pos=False)}')
+        print(f'check upper: {check_poly_boundary(e)}')
+        print(f'check lower: {check_poly_boundary(e,upper=False)}')
 
 
     # coeff_list_fx = [3,0,4,0,2,-5]
