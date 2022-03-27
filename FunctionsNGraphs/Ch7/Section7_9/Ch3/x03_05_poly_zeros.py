@@ -112,6 +112,26 @@ def gen_descarte_summary(coeff_list_fx):
         results[i] = result_dict
     return results
         
+def get_every_other_list_element(x:list, pos=True):
+    every_other_element = list()
+    for i in range(len(x)):
+        if i % 2 == 0:
+            every_other_element.append(x[i])
+
+    if pos:
+
+        greater_0 = list(filter(lambda x: x >=0, every_other_element))
+        if len(greater_0) == len(every_other_element):
+            return True
+        return False
+
+    else:
+        greater_0 = list(filter(lambda x: x <=0, every_other_element))
+        if len(greater_0) == len(every_other_element):
+            return True
+        return False
+
+
 def check_poly_boundary(qr: list, upper=True) -> bool:
     """Suppose that f(x) is a polynomial with real coefficients
     and positive leading coefficient, and that f(x) is divided
@@ -128,8 +148,9 @@ def check_poly_boundary(qr: list, upper=True) -> bool:
     
     if upper:
         greater_0 = list(filter(lambda x: x >=0, qr))
-        if len(greater_0) > 0:
+        if len(greater_0) == len(qr):
             return True
+        return False
     else:
         if qr[0] > 0:
             return get_every_other_list_element(qr[1:],pos=False) and \
@@ -138,25 +159,10 @@ def check_poly_boundary(qr: list, upper=True) -> bool:
             return get_every_other_list_element(qr[1:]) and \
                 get_every_other_list_element(qr[0:],pos=False)
         
-
-def get_every_other_list_element(x:list, pos=True):
-    every_other_element = list()
-    for i in range(len(x)):
-        if i % 2 == 0:
-            every_other_element.append(x[i])
-
-    if pos:
-
-        greater_0 = list(filter(lambda x: x >=0, every_other_element))
-        if len(greater_0) > 0:
-            return True
-        return False
-
-    else:
-        greater_0 = list(filter(lambda x: x <=0, every_other_element))
-        if len(greater_0) > 0:
-            return True
-        return False
+def check_bounds_synthetic(c,dividend):
+    qr = synthetic_division(c,dividend)
+    if c > 0:
+        pass
 
 
 if __name__ == '__main__':
