@@ -160,10 +160,23 @@ def check_poly_boundary(qr: list, upper=True) -> bool:
                 get_every_other_list_element(qr[0:],pos=False)
         
 def check_bounds_synthetic(c,dividend):
+    """Given a first order polynombial divisor 'x-c', and dividend
+    provided as a complete list of polynomial coefficients for a 
+    polynomial of degree greater than 1, will print statements
+    specifying whether or not 'c' is an upper or lower bound
+    for the real roots of the given polynomial"""
+    
     qr = synthetic_division(c,dividend)
     if c > 0:
-        pass
-
+        if check_poly_boundary(qr):
+            print(f"{c} is an upper bound for real roots of the polynombial {poly_display_from_list(dividend)}")
+        else:
+            print(f"{c} is ***NOT*** an upper bound for real roots of the polynombial {poly_display_from_list(dividend)}")
+    else:
+        if check_poly_boundary(qr, False):
+            print(f"{c} is a lower bound for real roots of the polynombial {poly_display_from_list(dividend)}")
+        else:
+            print(f"{c} is ***NOT*** an lower bound for real roots of the polynombial {poly_display_from_list(dividend)}")
 
 if __name__ == '__main__':
     x = [x for x in range(1,6)]
