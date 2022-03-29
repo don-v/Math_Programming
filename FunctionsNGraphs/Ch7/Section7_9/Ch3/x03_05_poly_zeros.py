@@ -178,6 +178,11 @@ def check_bounds_synthetic(c,dividend):
         else:
             print(f"{c} is ***NOT*** an lower bound for real roots of the polynombial {poly_display_from_list(dividend)}")
 
+
+def get_deg3_poly_from_roots(c1,c2,c3):
+    
+    pass
+
 if __name__ == '__main__':
     x = [x for x in range(1,6)]
     x1 = [x*(-1)**n for n,x in enumerate(range(1,6))]
