@@ -180,8 +180,12 @@ def check_bounds_synthetic(c,dividend):
 
 
 def get_deg3_poly_from_roots(c1,c2,c3):
+    a3 = 1
+    a2 = -1*(c1+c2+c3)
+    a1 = c1*c3 + c2*c3 + c1*c2 
+    a0 = -1*(c1*c2*c3)
+    return [a3, a2, a1, a0]
     
-    pass
 
 if __name__ == '__main__':
     x = [x for x in range(1,6)]
