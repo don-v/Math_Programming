@@ -186,6 +186,13 @@ def get_deg3_poly_from_roots(c1,c2,c3):
     a0 = -1*(c1*c2*c3)
     return [a3, a2, a1, a0]
     
+def do_sec3_5_ex1_6(c1,c2,c3,x,fx):
+    coeff_list = get_deg3_poly_from_roots(c1,c2,c3)
+    a = fx/eval_poly3(x,coeff_list)
+    final_coeffs = mult_coeffs(coeff_list,a)
+    poly = poly_display_from_list(final_coeffs)
+    return coeff_list, a, final_coeffs, poly
+
 
 if __name__ == '__main__':
     x = [x for x in range(1,6)]

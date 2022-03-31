@@ -193,7 +193,7 @@ def eval_remainder_at_x(r,x):
 
 def eval_poly3(x,coeff_list):
     '''evaluate a polynomial function at x given the complete
-    list of polynomial coefficients in a list thatk decrease in
+    list of polynomial coefficients that decrease in
     degree with increasing list index'''
     degree = get_degree(coeff_list)
     poly_terms=('x**{}'.format(x) for x in range(degree,-1,-1))
