@@ -194,6 +194,40 @@ def do_sec3_5_ex1_6(c1,c2,c3,x,fx):
     return coeff_list, a, final_coeffs, poly
 
 
+'''
+I'm studying pre-calculus, and in my mathbook there is the following theorem which is the basis for my question:
+
+If $f(x)$ is a polynomial of degree $n\space >\space 0$, then there exists n complex numbers, $c_1, c_2, ..., c_n$ such that:
+
+$$ f(x) = a(x-c_1)(x-c_2)\cdots(x-c_n)$$
+
+where $a$ is the leading coefficient of $f(x)$.  Each number $c_j$ is a zero of $f(x)$.
+
+Here's the question:
+
+   $c_1 = \sqrt{2},\space c_2=\pi,\space c3 = 0; f(0)=0$
+
+I need to find a polynomial of degree 3 with the given zeros $c_1,\space c_2,\space c_3$
+
+so when I plug in the zeros into the formula given in the theorem, I get:
+
+$$f(x) = a(x-\sqrt{2})(x-\pi)(x-0)$$
+
+$$f(x) = a(x-\sqrt{2})(x-\pi)(x)$$
+
+$$f(x) = a[(x^3+(-\sqrt{2}-\pi)(x^2)+\sqrt{2}\pi x]$$
+
+then evaluating our polynomial at $x=0:$
+
+$$f(0) = a[0] = 0$$
+
+Does this implies $a$ can be any real number?
+
+If so, would that imply 
+
+'''
+
+
 if __name__ == '__main__':
     x = [x for x in range(1,6)]
     x1 = [x*(-1)**n for n,x in enumerate(range(1,6))]
