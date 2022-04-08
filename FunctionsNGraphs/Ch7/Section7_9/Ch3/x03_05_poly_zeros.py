@@ -227,6 +227,10 @@ If so, would that imply
 
 '''
 
+def get_binomial(a,b,n):
+    from itertools import permutations
+    return []
+
 
 if __name__ == '__main__':
     x = [x for x in range(1,6)]
