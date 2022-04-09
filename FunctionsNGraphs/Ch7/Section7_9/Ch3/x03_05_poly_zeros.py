@@ -228,8 +228,23 @@ If so, would that imply
 '''
 
 def get_binomial(a,b,n):
-    from itertools import permutations
-    return []
+    '''returns the sum from k = 0 to n for 
+    (n choose k)*a**(n-k)*b**k'''
+    from math import comb
+
+    binom_coeffs = list()
+    a_exponents = list()
+    b_exponents = list()
+    sum = 0
+    for k in range(n+1):
+        binom_coeffs.append(comb(n,k))
+        a_exponents.append((n-k))
+        b_exponents.append(k)
+        sum += (comb(n,k))*(a**(n-k))*(b**k)
+    return sum, binom_coeffs, a_exponents, b_exponents
+    
+def display_binomial(a,b,n):
+    pass
 
 
 if __name__ == '__main__':
