@@ -244,7 +244,17 @@ def get_binomial(a,b,n):
     return sum, binom_coeffs, a_exponents, b_exponents
     
 def display_binomial(a,b,n):
-    pass
+    '''returns the string form of an expanded binomial
+    of the form (a+b)**n'''
+    _, binom_coeffs, a_exponents, b_exponents = get_binomial(a,b,n)
+    poly = ''
+    for i, (co,ax,bx) in enumerate(zip(binom_coeffs,a_exponents,b_exponents)):
+        if i == 0:
+            poly += '{}*(a**{})*(b**{})'.format(co,ax,bx)
+        else:
+            poly += ' + {}*(a**{})*(b**{})'.format(co,ax,bx)
+    return poly    
+    
 
 
 if __name__ == '__main__':
