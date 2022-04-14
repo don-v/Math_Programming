@@ -179,6 +179,14 @@ def check_bounds_synthetic(c,dividend):
             print(f"{c} is ***NOT*** an lower bound for real roots of the polynombial {poly_display_from_list(dividend)}")
 
 
+def get_deg4_poly_from_mult2_roots(c1,c2):
+    a4 = 1
+    a3 = -2*(c1+c2)
+    a2 = ((c1**2) + (4*(c1*c2)) + (c2**2))
+    a1 = -2*(((c1**2)*c2) + (c1*(c2**2)))
+    a0 = (c1**2)*(c2**2)
+    return [a4, a3, a2, a1, a0]
+
 def get_deg3_poly_from_roots(c1,c2,c3):
     a3 = 1
     a2 = -1*(c1+c2+c3)
