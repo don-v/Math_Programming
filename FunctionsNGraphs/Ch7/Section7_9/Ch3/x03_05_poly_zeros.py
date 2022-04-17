@@ -230,7 +230,31 @@ def display_binomial(a,b,n):
             poly += ' + {}*(a**{})*(b**{})'.format(co,ax,bx)
     return poly    
     
+class PolyTerm:
 
+    def __init__(self,coefficient,alpha,degree):
+        self.coefficient = coefficient
+        self.alpha = alpha
+        self.degree = degree
+
+    def __str__(self):
+        return f'{self.coefficient}*{self.alpha}**{self.degree}'
+
+    def add_poly_terms(self,term):
+        if self.alpha == term.alpha and self.degree == term.degree:
+            return PolyTerm(self.coefficient+term.coefficient,self.alpha,self.degree)
+        else:
+            raise Exception("These terms cannot be added")
+
+    def multiply_poly_terms(self,term):
+        return PolyTerm(self.coefficient*term.coefficient,self.alpha,self.degree+term.degree)
+
+    def factor_poly_terms(self,term):
+        if self.alpha == term.alpha:
+            if self.degree == term.degree:
+                return PolyTerm(self.coefficient+term.coefficient,self.alpha,self.degree)
+            elif self.degree < term.degree:
+                return PolyTerm()
 
 if __name__ == '__main__':
 
