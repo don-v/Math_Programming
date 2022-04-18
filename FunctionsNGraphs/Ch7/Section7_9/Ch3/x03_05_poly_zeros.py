@@ -256,6 +256,14 @@ class PolyTerm:
             elif self.degree < term.degree:
                 return PolyTerm()
 
+class PolyConstant(PolyTerm):
+
+    def __init__(self,coefficient,alpha,degree):
+        super(PolyConstant,self).__init__(self,coefficient,alpha,degree)
+
+        
+     
+
 if __name__ == '__main__':
 
     c1 = eval(input("Input the first root: "))
