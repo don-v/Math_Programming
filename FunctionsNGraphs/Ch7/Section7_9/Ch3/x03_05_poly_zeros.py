@@ -230,21 +230,31 @@ def display_binomial(a,b,n):
             poly += ' + {}*(a**{})*(b**{})'.format(co,ax,bx)
     return poly    
     
-class PolyTerm:
+class PolyConstant:
+
+    def __init__(self,coefficient):
+        self.coefficient = coefficient
+        
+
+    def __str__(self):
+        return f'{self.coefficient}'
+
+    
+class PolyTerm(PolyConstant):
 
     def __init__(self,coefficient,alpha,degree):
-        self.coefficient = coefficient
+        super(PolyTerm,self).__init__(alpha,degree)
         self.alpha = alpha
         self.degree = degree
 
     def __str__(self):
-        return f'{self.coefficient}*{self.alpha}**{self.degree}'
+        return super().__str__()+f'*{self.alpha}**{self.degree}'
 
     def add_poly_terms(self,term):
         if self.alpha == term.alpha and self.degree == term.degree:
             return PolyTerm(self.coefficient+term.coefficient,self.alpha,self.degree)
         else:
-            raise Exception("These terms cannot be added")
+            return {'terms':((self.coefficient,self.alpha,self.degree),(term.coefficient,term.alpha,term.degree)), 'add': 1}
 
     def multiply_poly_terms(self,term):
         return PolyTerm(self.coefficient*term.coefficient,self.alpha,self.degree+term.degree)
@@ -256,10 +266,6 @@ class PolyTerm:
             elif self.degree < term.degree:
                 return PolyTerm()
 
-class PolyConstant(PolyTerm):
-
-    def __init__(self,coefficient,alpha,degree):
-        super(PolyConstant,self).__init__(self,coefficient,alpha,degree)
 
         
      
