@@ -243,7 +243,7 @@ class PolyConstant:
 class PolyTerm(PolyConstant):
 
     def __init__(self,coefficient,alpha,degree):
-        super(PolyTerm,self).__init__(alpha,degree)
+        super(PolyTerm,self).__init__(coefficient,alpha,degree)
         self.alpha = alpha
         self.degree = degree
 
@@ -253,18 +253,19 @@ class PolyTerm(PolyConstant):
     def add_poly_terms(self,term):
         if self.alpha == term.alpha and self.degree == term.degree:
             return PolyTerm(self.coefficient+term.coefficient,self.alpha,self.degree)
-        else:
-            return {'terms':((self.coefficient,self.alpha,self.degree),(term.coefficient,term.alpha,term.degree)), 'add': 1}
 
     def multiply_poly_terms(self,term):
-        return PolyTerm(self.coefficient*term.coefficient,self.alpha,self.degree+term.degree)
+        if self.alpha == term.alpha:
+            return PolyTerm(self.coefficient*term.coefficient,self.alpha,self.degree+term.degree)
+        
 
     def factor_poly_terms(self,term):
-        if self.alpha == term.alpha:
-            if self.degree == term.degree:
-                return PolyTerm(self.coefficient+term.coefficient,self.alpha,self.degree)
-            elif self.degree < term.degree:
-                return PolyTerm()
+        pass
+        # if self.alpha == term.alpha:
+        #     if self.degree == term.degree:
+        #         return PolyTerm(self.coefficient+term.coefficient,self.alpha,self.degree)
+        #     elif self.degree < term.degree:
+        #         return PolyTerm()
 
 
         
