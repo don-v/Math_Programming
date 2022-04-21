@@ -243,7 +243,7 @@ class PolyConstant:
 class PolyTerm(PolyConstant):
 
     def __init__(self,coefficient,alpha,degree):
-        super(PolyTerm,self).__init__(coefficient,alpha,degree)
+        super(PolyTerm,self).__init__(coefficient)
         self.alpha = alpha
         self.degree = degree
 
