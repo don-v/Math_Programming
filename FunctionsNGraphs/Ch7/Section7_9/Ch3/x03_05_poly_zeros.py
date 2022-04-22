@@ -239,11 +239,16 @@ class PolyConstant:
     def __str__(self):
         return f'{self.coefficient}'
 
-    
-class PolyTerm(PolyConstant):
+    def multiply(self,const):
+        return self.coefficient*const.coefficient
 
-    def __init__(self,coefficient,alpha,degree):
-        super(PolyTerm,self).__init__(coefficient)
+    def add(self,const):
+        return self.coefficient + const.coefficient
+
+    
+class PolyTerm():
+
+    def __init__(self,alpha,degree):
         self.alpha = alpha
         self.degree = degree
 
