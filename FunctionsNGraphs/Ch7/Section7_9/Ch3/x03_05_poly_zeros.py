@@ -248,6 +248,23 @@ class PolyConstant:
     
 class PolyTerm():
 
+    """ {c-alpha-degree}
+    
+    j-x-n + k-x-n := (j+k)-x-n
+    j-x-n + k-x-z := {'add': [(j-x-n, k-x-n)]}
+    
+    j-x-n + k-y-n := {'add': [(j-x-n, k-y-n)]}
+    j-x-n + k-y-z := {'add': [(j-x-n, k-y-z)]}
+
+    j-x-n * k-x-n := (j*k)-x-(n+n)
+    j-x-n * k-x-z := (j*k)-x-(n+z)
+    
+    j-x-n * k-y-n := {'mult': [(j*k, x-n, y-n)]}
+    j-x-n * k-y-z := {'mult': [(j*k, x-n, y-z)]}
+    
+    """
+
+
     def __init__(self,alpha,degree):
         self.alpha = alpha
         self.degree = degree
