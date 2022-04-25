@@ -230,7 +230,18 @@ def display_binomial(a,b,n):
             poly += ' + {}*(a**{})*(b**{})'.format(co,ax,bx)
     return poly    
     
-    
+class PolyFuncs:
+
+    def __init__(self,degree=None) -> None:
+        self.degree = degree
+        self.poly_build_units = dict(add=list(), mult=list())
+        
+    def poly_add(self):
+        pass
+
+    def poly_mult(self):
+        pass
+
 class PolyTerm():
 
     """ {c-alpha-degree}
@@ -251,38 +262,27 @@ class PolyTerm():
 
 
     def __init__(self,coefficient,alpha,degree):
+        self.poly_funcs = PolyFuncs()
         self.coefficient = coefficient
         self.alpha = alpha
         self.degree = degree
 
     def __str__(self):
-        return super().__str__()+f'*{self.alpha}**{self.degree}'
+        return f'{self.coefficient}*{self.alpha}**{self.degree}'
 
     def add_poly_terms(self,term):
         if self.alpha == term.alpha and self.degree == term.degree:
             return PolyTerm(self.coefficient+term.coefficient,self.alpha,self.degree)
         else:
-            return {'add': [(self, term)]}
+            return self.poly_funcs.poly_build_units['add'].append((self, term))
+            
 
     def multiply_poly_terms(self,term):
         if self.alpha == term.alpha:
             return PolyTerm(self.coefficient*term.coefficient,self.alpha,self.degree+term.degree)
         else:
-            return {'mult': [(self.coefficient*term.coeffcient, PolyTerm(1,self.alpha,self.degree), PolyTerm(1,term.alpha, term.degree))]}
-
-class Polynomial:
-
-    def __init__(self,degree=None) -> None:
-        self.degree = degree
-        self.poly_build_units = dict(add=None, mult=None)
-        
-    def poly_mult(self):
-        pass
-
-    def poly_add(self):
-        pass
-    
-
+            return self.poly_funcs.poly_build_units['mult'].append((self.coefficient*term.coefficient, PolyTerm(1,self.alpha,self.degree), PolyTerm(1,term.alpha, term.degree)))
+            
 
 if __name__ == '__main__':
 
