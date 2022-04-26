@@ -272,14 +272,16 @@ class PolyTerm():
 
     def add_poly_terms(self,term):
         if self.alpha == term.alpha and self.degree == term.degree:
-            return PolyTerm(self.coefficient+term.coefficient,self.alpha,self.degree)
+            term_ = PolyTerm(self.coefficient+term.coefficient,self.alpha,self.degree) 
+            return self.poly_funcs.poly_build_units['add'].append((term_,))
         else:
             return self.poly_funcs.poly_build_units['add'].append((self, term))
             
 
     def multiply_poly_terms(self,term):
         if self.alpha == term.alpha:
-            return PolyTerm(self.coefficient*term.coefficient,self.alpha,self.degree+term.degree)
+            term_ = PolyTerm(self.coefficient*term.coefficient,self.alpha,self.degree+term.degree) 
+            return self.poly_funcs.poly_build_units['add'].append((term_,))
         else:
             return self.poly_funcs.poly_build_units['mult'].append((self.coefficient*term.coefficient, PolyTerm(1,self.alpha,self.degree), PolyTerm(1,term.alpha, term.degree)))
             
