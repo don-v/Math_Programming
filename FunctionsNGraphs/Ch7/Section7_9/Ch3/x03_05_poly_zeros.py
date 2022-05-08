@@ -288,23 +288,29 @@ class PolyTerm():
 
 if __name__ == '__main__':
 
-    c1 = eval(input("Input the first root: "))
-    c2 = eval(input("Input the 2nd root: "))
-    c3 = eval(input("Input the 3rd root: "))
-    x = eval(input("The value at which the polynomial is evaluated: "))
-    fx = eval(input("The value of the polynomial evaluated at 'x': "))
-    f = get_deg3_poly_from_roots
-    g = f(c1,c2,c3)
-    a = fx/eval_poly3(x,g)
-    final_coeffs = mult_coeffs(g,a)
-    poly = poly_display_from_list(final_coeffs)
-    print(f'''
-    g_coeffs: {g}
-    g(x): {poly_display_from_list(g)}
-    a: {a}
-    final_coeffs: {final_coeffs}
-    final_poly: {poly}
-    ''')
+    _,c,a,b = get_binomial(1,1,5)
+
+    for i in c[:]:
+        idx = c.index(i)
+        if idx %2 != 0:
+            c[idx] = c[idx]*-1
+    # c1 = eval(input("Input the first root: "))
+    # c2 = eval(input("Input the 2nd root: "))
+    # c3 = eval(input("Input the 3rd root: "))
+    # x = eval(input("The value at which the polynomial is evaluated: "))
+    # fx = eval(input("The value of the polynomial evaluated at 'x': "))
+    # f = get_deg3_poly_from_roots
+    # g = f(c1,c2,c3)
+    # a = fx/eval_poly3(x,g)
+    # final_coeffs = mult_coeffs(g,a)
+    # poly = poly_display_from_list(final_coeffs)
+    # print(f'''
+    # g_coeffs: {g}
+    # g(x): {poly_display_from_list(g)}
+    # a: {a}
+    # final_coeffs: {final_coeffs}
+    # final_poly: {poly}
+    # ''')
 
     # x = [x for x in range(1,6)]
     # x1 = [x*(-1)**n for n,x in enumerate(range(1,6))]
