@@ -290,10 +290,13 @@ if __name__ == '__main__':
 
     _,c,a,b = get_binomial(1,1,5)
 
-    for i in c[:]:
-        idx = c.index(i)
-        if idx %2 != 0:
-            c[idx] = c[idx]*-1
+    updated_c = [value*((-1)**(idx)) for idx,value in enumerate(c[:])]
+    print(f'''
+    c:
+    {c}
+    updated c: 
+    {updated_c}''')
+        
     # c1 = eval(input("Input the first root: "))
     # c2 = eval(input("Input the 2nd root: "))
     # c3 = eval(input("Input the 3rd root: "))
