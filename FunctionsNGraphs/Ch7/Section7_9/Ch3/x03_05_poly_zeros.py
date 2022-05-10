@@ -289,13 +289,26 @@ class PolyTerm():
 if __name__ == '__main__':
 
     _,c,a,b = get_binomial(1,1,5)
+    divisor = [value*((-1)**(idx)) for idx,value in enumerate(c[:])]
+    dividend = [1,-4,5,0,-5,4,-1]
+    qx, rx = list_poly_div(divisor,dividend,q=[],n=0)
+    qx_poly = poly_display_from_list(qx)
 
-    updated_c = [value*((-1)**(idx)) for idx,value in enumerate(c[:])]
+    def recursive_syn_div(c,dividend,depth=0):
+        result = synthetic_division(c,dividend)
+        if result[-1] == 0:
+            return result[:-1]
+        else:
+            depth +=1
+            return recursive_syn_div(c,result[:-1],depth)
+
+    qx_r = recursive_syn_div(1,dividend)
+
     print(f'''
-    c:
-    {c}
-    updated c: 
-    {updated_c}''')
+    qx: {qx}
+    qx_poly: {qx_poly}
+    qx_r: {qx_r}
+    rx: {rx}''')
         
     # c1 = eval(input("Input the first root: "))
     # c2 = eval(input("Input the 2nd root: "))
