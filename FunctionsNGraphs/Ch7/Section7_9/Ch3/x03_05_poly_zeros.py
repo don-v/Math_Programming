@@ -294,13 +294,14 @@ if __name__ == '__main__':
     qx, rx = list_poly_div(divisor,dividend,q=[],n=0)
     qx_poly = poly_display_from_list(qx)
 
-    def recursive_syn_div(c,dividend,depth=0):
+    def recursive_syn_div(c,dividend,depth=0,results=dict()):
         result = synthetic_division(c,dividend)
-        if result[-1] == 0:
-            return result[:-1]
+        results[depth] = result
+        if result[-1] != 0:
+            return results[depth-1][:-1], depth
         else:
             depth +=1
-            return recursive_syn_div(c,result[:-1],depth)
+            return recursive_syn_div(c,result[:-1],depth,results)
 
     qx_r = recursive_syn_div(1,dividend)
 
