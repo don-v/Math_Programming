@@ -288,9 +288,9 @@ class PolyTerm():
 
 if __name__ == '__main__':
 
-    _,c,a,b = get_binomial(1,1,5)
-    divisor = [value*((-1)**(idx)) for idx,value in enumerate(c[:])]
-    dividend = [1,-4,5,0,-5,4,-1]
+    _,c,a,b = get_binomial(1,1,4)
+    divisor = [value*((1)**(idx)) for idx,value in enumerate(c[:])]
+    dividend = [1,4,-6,-14,-11,-3]
     qx, rx = list_poly_div(divisor,dividend,q=[],n=0)
     qx_poly = poly_display_from_list(qx)
 
@@ -303,7 +303,7 @@ if __name__ == '__main__':
             depth +=1
             return recursive_syn_div(c,result[:-1],depth,results)
 
-    qx_r = recursive_syn_div(1,dividend)
+    qx_r = recursive_syn_div(-1,dividend)
 
     print(f'''
     qx: {qx}
