@@ -290,7 +290,7 @@ if __name__ == '__main__':
 
     _,c,a,b = get_binomial(1,1,4)
     divisor = [value*((1)**(idx)) for idx,value in enumerate(c[:])]
-    dividend = [1,4,-6,-14,-11,-3]
+    dividend = [1,1,-6,-14,-11,-3]
     qx, rx = list_poly_div(divisor,dividend,q=[],n=0)
     qx_poly = poly_display_from_list(qx)
 
