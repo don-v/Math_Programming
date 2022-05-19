@@ -77,8 +77,8 @@ def descarte_possibles(x):
     possible_zeros = list()
     if x == 0: return [0]
     for i in range(x):
-        x = x-2*i
-        if x >= 0: possible_zeros.append(x)
+        y = x-2*i
+        if y >= 0: possible_zeros.append(y)
     return possible_zeros
 
 def gen_descarte_summary(coeff_list_fx):
@@ -288,28 +288,31 @@ class PolyTerm():
 
 if __name__ == '__main__':
 
-    _,c,a,b = get_binomial(1,1,4)
-    divisor = [value*((1)**(idx)) for idx,value in enumerate(c[:])]
-    dividend = [1,1,-6,-14,-11,-3]
-    qx, rx = list_poly_div(divisor,dividend,q=[],n=0)
-    qx_poly = poly_display_from_list(qx)
+    real_pos = descarte_possibles(4)
+    print(real_pos)
 
-    def recursive_syn_div(c,dividend,depth=0,results=dict()):
-        result = synthetic_division(c,dividend)
-        results[depth] = result
-        if result[-1] != 0:
-            return results[depth-1][:-1], depth
-        else:
-            depth +=1
-            return recursive_syn_div(c,result[:-1],depth,results)
+    # _,c,a,b = get_binomial(1,1,4)
+    # divisor = [value*((1)**(idx)) for idx,value in enumerate(c[:])]
+    # dividend = [1,1,-6,-14,-11,-3]
+    # qx, rx = list_poly_div(divisor,dividend,q=[],n=0)
+    # qx_poly = poly_display_from_list(qx)
 
-    qx_r = recursive_syn_div(-1,dividend)
+    # def recursive_syn_div(c,dividend,depth=0,results=dict()):
+    #     result = synthetic_division(c,dividend)
+    #     results[depth] = result
+    #     if result[-1] != 0:
+    #         return results[depth-1][:-1], depth
+    #     else:
+    #         depth +=1
+    #         return recursive_syn_div(c,result[:-1],depth,results)
 
-    print(f'''
-    qx: {qx}
-    qx_poly: {qx_poly}
-    qx_r: {qx_r}
-    rx: {rx}''')
+    # qx_r = recursive_syn_div(-1,dividend)
+
+    # print(f'''
+    # qx: {qx}
+    # qx_poly: {qx_poly}
+    # qx_r: {qx_r}
+    # rx: {rx}''')
         
     # c1 = eval(input("Input the first root: "))
     # c2 = eval(input("Input the 2nd root: "))
