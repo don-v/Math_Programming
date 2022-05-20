@@ -288,8 +288,11 @@ class PolyTerm():
 
 if __name__ == '__main__':
 
-    real_pos = descarte_possibles(4)
-    print(real_pos)
+    c = [1,4,3,0,-4,2]
+    result = gen_descarte_summary(c)
+
+    # real_pos = descarte_possibles(4)
+    # print(real_pos)
 
     # _,c,a,b = get_binomial(1,1,4)
     # divisor = [value*((1)**(idx)) for idx,value in enumerate(c[:])]
