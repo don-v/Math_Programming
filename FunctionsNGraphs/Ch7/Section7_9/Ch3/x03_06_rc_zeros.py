@@ -24,6 +24,13 @@ prime factors and c > 0, then c is a factor
 of a_0 and d is a factor of a_n.
 """
 
+def get_factors(x):
+    facts = list()        
+    for i in range(1,x+1):
+        if x % i == 0:
+            facts.append(i)
+    return facts
+ 
 
 if __name__ == '__main__':
     pass
