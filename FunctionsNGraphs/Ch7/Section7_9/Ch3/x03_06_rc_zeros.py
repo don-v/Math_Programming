@@ -1,4 +1,5 @@
 from Ch3.x03_05_poly_zeros import *
+from itertools import product
 
 """
 Theorem: If f(x) is a polynomial of degree n > 0
@@ -25,12 +26,21 @@ of a_0 and d is a factor of a_n.
 """
 
 def get_factors(x):
+    """returns factors of x"""
     facts = list()        
     for i in range(1,x+1):
         if x % i == 0:
             facts.append(i)
     return facts
  
+
+def get_possible_zeros(a_0,a_n):
+    possible_c = get_factors(a_0)
+    possible_d_pos = get_factors(a_n)
+    possible_d = list(map(lambda j: j*-1, possible_d_pos)) + possible_d_pos
+    positive_possibles = product(possible_c,possible_d)
+
+
 
 if __name__ == '__main__':
     pass
