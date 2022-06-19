@@ -39,6 +39,10 @@ def get_possible_zeros(a_0,a_n):
     possible_d_pos = get_factors(a_n)
     possible_d = list(map(lambda j: j*-1, possible_d_pos)) + possible_d_pos
     positive_possibles = product(possible_c,possible_d)
+    for c,d in positive_possibles:
+        pass
+
+
 
 
 
