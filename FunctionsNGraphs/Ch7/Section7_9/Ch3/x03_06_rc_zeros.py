@@ -25,6 +25,12 @@ prime factors and c > 0, then c is a factor
 of a_0 and d is a factor of a_n.
 """
 
+def get_abs_value(x):
+    if x >= 0:
+        return x
+    else:
+        return -x
+
 def get_factors(x):
     """returns factors of x"""
     facts = list()        
@@ -34,17 +40,19 @@ def get_factors(x):
     return facts
  
 
-def get_possible_zeros(a_0,a_n):
-    possible_c = get_factors(a_0)
+def get_possible_zeros(a_n,a_0):
+    possible_c = get_factors(get_abs_value(a_0))
     possible_d_pos = get_factors(a_n)
     possible_d = list(map(lambda j: j*-1, possible_d_pos)) + possible_d_pos
     positive_possibles = product(possible_c,possible_d)
+    possible_zeros = list()
     for c,d in positive_possibles:
-        pass
-
-
-
+        possible_zeros.append(f'{c}/{d}')
+    return possible_zeros
 
 
 if __name__ == '__main__':
-    pass
+    coeffs = [1,-1,-10,-8]
+    possible_zeros = get_possible_zeros(1,-8)
+    for zero in possible_zeros:
+        print(zero)
