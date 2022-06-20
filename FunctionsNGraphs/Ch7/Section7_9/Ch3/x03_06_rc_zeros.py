@@ -50,9 +50,25 @@ def get_possible_zeros(a_n,a_0):
         possible_zeros.append(f'{c}/{d}')
     return possible_zeros
 
+def recursive_syn_div(zero, coeffs, possible_zeros, confirmed_zeros = []):
+    while get_degree(coeffs) >2:
+        for zero in possible_zeros:
+            qr = synthetic_division(zero, coeffs)
+            if get_abs_value(qr[-1]) < 0.001:
+                confirmed_zeros.append(zero)
+                coeffs = qr[:-1]
+
+
 
 if __name__ == '__main__':
     coeffs = [1,-1,-10,-8]
     possible_zeros = get_possible_zeros(1,-8)
-    for zero in possible_zeros:
-        print(zero)
+    confirmed_zeros = list()
+    while get_degree(coeffs) >2:
+        for zero in possible_zeros:
+            qr = synthetic_division(zero, coeffs)
+            if get_abs_value(qr[-1]) < 0.001:
+                confirmed_zeros.append(zero)
+                coeffs = qr[:-1]
+                
+    
