@@ -62,17 +62,20 @@ def get_possible_zeros(a_n,a_0):
 
 if __name__ == '__main__':
     coeffs = [1,-1,-10,-8]
-    possible_zeros = get_possible_zeros(1,-8)
+    # possible_zeros = get_possible_zeros(1,-8)
+    possible_zeros = list(map(str,list(range(-5,6))))
     confirmed_zeros = list()
-    while get_degree(coeffs) > 2:
-        for zero in possible_zeros.copy():
-            qr = synthetic_division(zero, coeffs)
-            if get_abs_value(qr[-1]) < .001:
-                idx = possible_zeros.index(zero)
-                confirmed_zeros.append(possible_zeros.pop(idx))
-                coeffs = qr[:-1]
-            else: 
-                continue
+    for zero in possible_zeros.copy():
+        qr = synthetic_division(eval(zero), coeffs)
+        r = qr[-1]
+        if get_abs_value(r) < .001:
+            confirmed_zeros.append(zero)
+            coeffs = qr[:-1]
+            if get_degree(coeffs) == 2:
+                break
+        else: 
+            continue
+    print(confirmed_zeros)
 
 
 
