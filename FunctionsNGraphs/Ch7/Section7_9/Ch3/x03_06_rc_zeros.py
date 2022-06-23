@@ -58,12 +58,32 @@ def get_possible_zeros(a_n,a_0):
 #                 confirmed_zeros.append(zero)
 #                 coeffs = qr[:-1]
 
+def complex_roots_(a,b,c):
+    d=((math.pow(b,2))-(4*a*c))
+    if a!=0:
+        if d>0:
+           x1=(-b+math.sqrt(d))/(2*a)
+           x2=(-b-math.sqrt(d))/(2*a)
+           print("x1=",x1," and x2=",x2)
+           print("real root")
+           return x1,x2
+        elif d==0:
+           x=-b/(2*a)
+           print("x=",x)
+           print("equal root" )
+           return (x1,)
+        elif d<0:
+            x1=(-b+cmath.sqrt(d))/(2*a)
+            x2=(-b-cmath.sqrt(d))/(2*a)
+            print("x1=",x1," and x2=",x2)
+            print("complex root")
+            return x1,x2
+    else:
+        print("this is not quadratic equation")
 
-
-if __name__ == '__main__':
-    coeffs = [1,-1,-10,-8]
-    # possible_zeros = get_possible_zeros(1,-8)
-    possible_zeros = list(map(str,list(range(-5,6))))
+def get_rational_zeros(coeffs:list):
+    an,a0 = coeffs[0],coeffs[-1]
+    possible_zeros = get_possible_zeros(an,a0)
     confirmed_zeros = list()
     for zero in possible_zeros.copy():
         qr = synthetic_division(eval(zero), coeffs)
@@ -72,6 +92,29 @@ if __name__ == '__main__':
             confirmed_zeros.append(zero)
             coeffs = qr[:-1]
             if get_degree(coeffs) == 2:
+                zeros = complex_roots_(*coeffs)
+                for z in zeros:
+                    confirmed_zeros.append(z)
+                break
+        else: 
+            continue
+    return confirmed_zeros
+
+if __name__ == '__main__':
+    coeffs = [1,-1,-10,-8]
+    possible_zeros = get_possible_zeros(1,-8)
+    # possible_zeros = list(map(str,list(range(-5,6))))
+    confirmed_zeros = list()
+    for zero in possible_zeros.copy():
+        qr = synthetic_division(eval(zero), coeffs)
+        r = qr[-1]
+        if get_abs_value(r) < .001:
+            confirmed_zeros.append(zero)
+            coeffs = qr[:-1]
+            if get_degree(coeffs) == 2:
+                zeros = complex_roots_(*coeffs)
+                for z in zeros:
+                    confirmed_zeros.append(z)
                 break
         else: 
             continue
