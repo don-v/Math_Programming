@@ -100,6 +100,13 @@ def get_rational_zeros(coeffs:list):
             continue
     return confirmed_zeros
 
+def get_list(x):
+    z = list()
+    while len(z) < x:
+        num = input('enter a number to add to the list: ')
+        z.append(int(num))
+    return z
+
 if __name__ == '__main__':
     coeffs = [1,-1,-10,-8]
     possible_zeros = get_possible_zeros(1,-8)
