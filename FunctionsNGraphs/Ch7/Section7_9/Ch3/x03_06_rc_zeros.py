@@ -107,6 +107,14 @@ def get_list(x):
         z.append(int(num))
     return z
 
+def test_zeros(zeros, coeffs):
+    fx = list()
+    str_z = list(map(str,zeros))
+    num_z = list(map(eval,str_z))
+    for z in num_z:
+        fx.append(eval_poly3(z,coeffs))
+    return fx
+
 if __name__ == '__main__':
     coeffs = [1,-1,-10,-8]
     possible_zeros = get_possible_zeros(1,-8)
