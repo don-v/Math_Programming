@@ -115,6 +115,14 @@ def test_zeros(zeros, coeffs):
         fx.append(eval_poly3(z,coeffs))
     return fx
 
+def test_possible_zeros(coeffs:list):
+    fx = list()
+    possible_zeros = get_possible_zeros(coeffs[0],coeffs[-1])
+    num_possible_zeros = list(map(eval,possible_zeros))
+    for z in num_possible_zeros:
+        fx.append(eval_poly3(z,coeffs))
+    return num_possible_zeros, fx
+
 if __name__ == '__main__':
     coeffs = [1,-1,-10,-8]
     possible_zeros = get_possible_zeros(1,-8)
