@@ -6,6 +6,10 @@ Theorem: If f(x) is a polynomial of degree n > 0
 and has real coefficients and if z is a complex
 zero of f(x), then the conjugate z-bar of z is
 also a zero of f(x)
+
+Q 38: math.stackexchange:
+https://math.stackexchange.com/questions/848240/do-polynomials-with-complex-coefficients-need-to-have-complex-conjugate-roots
+https://math.stackexchange.com/questions/1540778/do-complex-roots-always-come-in-pairs
 """
 
 """
