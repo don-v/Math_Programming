@@ -20,14 +20,15 @@ requires special attention when x is near c!
 '''
 
 def fx_near_c(c, gx=[], hx=[], inc=0.1):
-    lb = int(c-1)
-    ub = int(c+1)
-    r = range(lb, ub, inc)
+    start = c-inc*10
+    end = c+inc*10
     results = dict()
-    for i in r:
-        g = eval_poly3(i,gx)
-        h = eval_poly3(i,hx)
-        results[i] = g/h
+    while abs(end-start) > inc:
+        if start == c: continue
+        g = eval_poly3(start,gx)
+        h = eval_poly3(start,hx)
+        results[start] = g/h
+        start += inc
     return results
 
 
