@@ -19,11 +19,12 @@ f(c) = g(c)/0 is undefined, and hence the behavior of f(x)
 requires special attention when x is near c!
 '''
 
-def fx_near_c(c, gx=[], hx=[], inc=0.1):
-    start = c-inc*10
-    end = c+inc*10
+def fx_near_c(c, gx=[], hx=[], dist=0.1, ints=10):
+    inc = dist/ints
+    start = c-dist
+    end = c+dist
     results = dict()
-    while abs(end-start) > inc:
+    while abs(end-start) >= inc-.001:
         if start == c: continue
         g = eval_poly3(start,gx)
         h = eval_poly3(start,hx)
@@ -39,4 +40,4 @@ if __name__ == '__main__':
     hx = [1,-2]
     close = fx_near_c(2,gx,hx)
     for k,v in close.items():
-        print('{}: {}'.format(k,v))
+        print('{:.2f}: {:.2f}'.format(k,v))
